@@ -5,7 +5,7 @@ import { TimeDisplay, TimeOption } from '../../models/time-display';
 import { ScrollableDirective } from 'ng-gxscrollable';
 
 @Component({
-  selector: 'app-clock',
+  selector: 'gxd-clock',
   templateUrl: './clock.component.html',
   styleUrls: ['./clock.component.scss']
 })

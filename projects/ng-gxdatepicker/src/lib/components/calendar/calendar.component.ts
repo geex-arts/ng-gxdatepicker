@@ -5,7 +5,7 @@ import { MonthDisplay } from '../../models/month-display';
 import { ComponentDestroyObserver } from '../../decorators/component-destroy-observer/component-destroy-observer';
 
 @Component({
-  selector: 'app-calendar',
+  selector: 'gxd-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
