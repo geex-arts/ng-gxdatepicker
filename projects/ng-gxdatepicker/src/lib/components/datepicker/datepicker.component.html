@@ -1,0 +1,16 @@
+<div class="datepicker-container"
+     [class.datepicker-container_opened]="opened"
+     [class.datepicker-container_position_bottom-left]="position == positions.BottomLeft"
+     [class.datepicker-container_position_bottom-right]="position == positions.BottomRight"
+     [class.datepicker-container_position_top-left]="position == positions.TopLeft"
+     [class.datepicker-container_position_top-right]="position == positions.TopRight"
+     #root>
+  <div class="datepicker">
+    <div class="datepicker__item">
+      <app-calendar (change)="onDateChange($event)"></app-calendar>
+    </div>
+    <div class="datepicker__item">
+      <app-clock (change)="onTimeChange($event)"></app-clock>
+    </div>
+  </div>
+</div>

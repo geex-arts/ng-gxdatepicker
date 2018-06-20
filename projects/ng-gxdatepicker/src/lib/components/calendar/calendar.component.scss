@@ -1,0 +1,111 @@
+.datepicker-calendar {
+  min-width: 200px;
+}
+
+.datepicker-calendar__header {
+  position: relative;
+  padding: 10px 16px;
+  margin-bottom: 10px;
+}
+
+.datepicker-calendar__header-title {
+  display: block;
+  text-align: center;
+  color: #333;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.datepicker-calendar__header-control {
+  &, &:visited, &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  position: absolute;
+  top: 50%;
+  bottom: 0;
+  background: #eee;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 10px;
+  border-radius: 4px;
+  text-align: center;
+  transform: translate3d(0, -50%, 0);
+
+  &_left {
+    left: 0;
+  }
+
+  &_right {
+    right: 0;
+  }
+}
+
+.datepicker-calendar__table-heading {
+  margin: 0;
+  padding: 0;
+  width: percentage(1 / 7);
+  font-size: 14px;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  color: #333;
+  text-align: center;
+
+  &_weekend {
+    color: #ff505c;
+  }
+}
+
+.datepicker-calendar__table {
+  border-collapse: collapse;
+}
+
+.datepicker-calendar__table-cell {
+  margin: 0;
+  padding: 0;
+  width: percentage(1 / 7);
+  font-size: 12px;
+  font-weight: 500;
+  height: 30px;
+  line-height: 30px;
+  color: #333;
+  border-radius: 3px;
+  text-align: center;
+  transition: background 0.3s ease, color 0.3s ease;
+
+  &_another-month {
+    opacity: 0.5;
+  }
+
+  &:hover {
+    color: #333;
+    background: #f1f1f1;
+  }
+
+  &_today {
+    color: #6da5ff;
+  }
+
+  &_weekend {
+    color: #ff505c;
+  }
+
+  &_selected, &_selected:hover {
+    background: #6da5ff;
+    color: #fff;
+  }
+}
+
+.datepicker-calendar__table-cell-link {
+  &, &:visited, &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  display: block;
+  padding: 0 10px;
+}

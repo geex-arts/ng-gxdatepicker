@@ -1,0 +1,76 @@
+<div class="datepicker-clock">
+  <div *ngFor="let option of timeDisplay.options; trackBy: trackByFn" class="datepicker-clock__item">
+    <div class="datepicker-clock__item-title">
+      {{option.title}}
+    </div>
+    <div class="datepicker-clock__item-content">
+      <div class="datepicker-clock__item-content__inner datepicker-clock-options"
+           xsScrollable
+           #scrollable="scrollableDirective">
+        <a *ngFor="let item of option.items"
+           href="javascript:void(0)"
+           class="datepicker-clock-options__item"
+           [class.datepicker-clock-options__item_now]="item.now"
+           [class.datepicker-clock-options__item_selected]="item.selected"
+           (tap)="select(item.date)">
+          {{item.str}}
+        </a>
+      </div>
+      <xs-scrollbar [scrollable]="scrollable" [theme]="'default'" [hideTimeout]="undefined"></xs-scrollbar>
+    </div>
+  </div>
+  <!--<div class="datepicker-clock__item">-->
+    <!--<div class="datepicker-clock__item-title">Hours</div>-->
+    <!--<div class="datepicker-clock__item-content">-->
+      <!--<div class="datepicker-clock__item-content__inner datepicker-clock-options"-->
+           <!--xsScrollable-->
+           <!--#hours_scrollable="scrollableDirective">-->
+        <!--<a *ngFor="let item of timeDisplay.hours"-->
+           <!--href="javascript:void(0)"-->
+           <!--class="datepicker-clock-options__item"-->
+           <!--[class.datepicker-clock-options__item_now]="item.now"-->
+           <!--[class.datepicker-clock-options__item_selected]="item.selected"-->
+           <!--(tap)="select(item.date)">-->
+          <!--{{item.date.format('HH')}}-->
+        <!--</a>-->
+      <!--</div>-->
+      <!--<xs-scrollbar [scrollable]="hours_scrollable" [theme]="'default'" [hideTimeout]="undefined"></xs-scrollbar>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="datepicker-clock__item">-->
+    <!--<div class="datepicker-clock__item-title">Minutes</div>-->
+    <!--<div class="datepicker-clock__item-content">-->
+      <!--<div class="datepicker-clock__item-content__inner datepicker-clock-options"-->
+           <!--xsScrollable-->
+           <!--#minutes_scrollable="scrollableDirective">-->
+        <!--<a *ngFor="let item of timeDisplay.minutes"-->
+           <!--href="javascript:void(0)"-->
+           <!--class="datepicker-clock-options__item"-->
+           <!--[class.datepicker-clock-options__item_now]="item.now"-->
+           <!--[class.datepicker-clock-options__item_selected]="item.selected"-->
+           <!--(tap)="select(item.date)">-->
+          <!--{{item.date.format('mm')}}-->
+        <!--</a>-->
+      <!--</div>-->
+      <!--<xs-scrollbar [scrollable]="minutes_scrollable" [theme]="'default'" [hideTimeout]="undefined"></xs-scrollbar>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="datepicker-clock__item">-->
+    <!--<div class="datepicker-clock__item-title">Seconds</div>-->
+    <!--<div class="datepicker-clock__item-content">-->
+      <!--<div class="datepicker-clock__item-content__inner datepicker-clock-options"-->
+           <!--xsScrollable-->
+           <!--#seconds_scrollable="scrollableDirective">-->
+        <!--<a *ngFor="let item of timeDisplay.seconds"-->
+           <!--href="javascript:void(0)"-->
+           <!--class="datepicker-clock-options__item"-->
+           <!--[class.datepicker-clock-options__item_now]="item.now"-->
+           <!--[class.datepicker-clock-options__item_selected]="item.selected"-->
+           <!--(tap)="select(item.date)">-->
+          <!--{{item.date.format('ss')}}-->
+        <!--</a>-->
+      <!--</div>-->
+      <!--<xs-scrollbar [scrollable]="seconds_scrollable" [theme]="'default'" [hideTimeout]="undefined"></xs-scrollbar>-->
+    <!--</div>-->
+  <!--</div>-->
+</div>

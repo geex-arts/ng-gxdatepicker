@@ -1,0 +1,44 @@
+<div class="datepicker-calendar">
+  <div class="datepicker-calendar__header">
+    <a href="javascript:void(0)"
+       class="datepicker-calendar__header-control datepicker-calendar__header-control_left"
+       (tap)="monthDisplay.prevMonth()">
+      ←
+    </a>
+    <span class="datepicker-calendar__header-title">
+      {{monthDisplay.date.format('MMMM YYYY')}}
+    </span>
+    <a href="javascript:void(0)"
+       class="datepicker-calendar__header-control datepicker-calendar__header-control_right"
+       (tap)="monthDisplay.nextMonth()">
+      →
+    </a>
+  </div>
+  <table class="datepicker-calendar__table">
+    <thead>
+    <tr class="datepicker-calendar__table-header">
+      <th *ngFor="let day of monthDisplay.weekDays"
+          class="datepicker-calendar__table-heading"
+          [class.datepicker-calendar__table-heading_weekend]="day.weekend">
+        {{day.date.format('dd')}}
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let week of monthDisplay.weeks" class="datepicker-calendar__table-row">
+      <td *ngFor="let day of week"
+          class="datepicker-calendar__table-cell"
+          [class.datepicker-calendar__table-cell_another-month]="!day.currentMonth"
+          [class.datepicker-calendar__table-cell_today]="day.today"
+          [class.datepicker-calendar__table-cell_selected]="day.selected"
+          [class.datepicker-calendar__table-cell_weekend]="day.weekend">
+        <a href="javascript:void(0)"
+           class="datepicker-calendar__table-cell-link"
+           (tap)="select(day.date)">
+          {{day.date.format('D')}}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
