@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgXScrollableModule } from 'ng-xscrollable';
+import { NgGxScrollableModule } from 'ng-gxscrollable';
 
 import 'hammerjs';
 
@@ -11,7 +11,7 @@ import { ClockComponent } from './components/clock/clock.component';
 @NgModule({
   imports: [
     CommonModule,
-    NgXScrollableModule
+    NgGxScrollableModule
   ],
   declarations: [
     DatepickerComponent,

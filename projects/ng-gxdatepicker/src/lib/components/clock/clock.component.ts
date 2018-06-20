@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, Output, ViewChil
 import moment from 'moment';
 
 import { TimeDisplay, TimeOption } from '../../models/time-display';
-import { ScrollableDirective } from 'ng-xscrollable';
+import { ScrollableDirective } from 'ng-gxscrollable';
 
 @Component({
   selector: 'app-clock',
