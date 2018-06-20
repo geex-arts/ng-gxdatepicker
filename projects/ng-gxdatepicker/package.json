@@ -1,6 +1,6 @@
 {
   "name": "ng-gxdatepicker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Customizable date and time pickers",
   "repository": {
     "type": "git",
@@ -9,9 +9,9 @@
   "keywords": [
     "angular2",
     "component",
-    "select",
-    "autocomplete",
-    "dropdown"
+    "datepicker",
+    "timepicker",
+    "calendar"
   ],
   "author": "Denis Kildishev",
   "license": "MIT",
