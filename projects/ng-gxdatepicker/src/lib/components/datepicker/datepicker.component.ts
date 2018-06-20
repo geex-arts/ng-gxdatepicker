@@ -30,7 +30,7 @@ export enum DatepickerPosition {
 }
 
 @Component({
-  selector: 'app-datepicker',
+  selector: 'gxd-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
