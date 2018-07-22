@@ -5,7 +5,8 @@
      [class.datepicker-container_position_top-left]="position == positions.TopLeft"
      [class.datepicker-container_position_top-right]="position == positions.TopRight"
      #root>
-  <div class="datepicker">
+  <div class="datepicker"
+       [ngClass]="['datepicker_theme_' + currentOptions.theme]">
     <div class="datepicker__item">
       <gxd-calendar (change)="onDateChange($event)"></gxd-calendar>
     </div>
