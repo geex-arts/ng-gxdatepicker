@@ -1,5 +1,5 @@
 
 <div class="datepicker-wrapper">
-  <input type="text" placeholder="Date..." #dp>
-  <gxd-datepicker [input]="dp"></gxd-datepicker>
+  <input type="text" placeholder="Date..." (change)="onChanged()" #dp>
+  <gxd-datepicker [options]="{ theme: 'custom' }" [input]="dp"></gxd-datepicker>
 </div>

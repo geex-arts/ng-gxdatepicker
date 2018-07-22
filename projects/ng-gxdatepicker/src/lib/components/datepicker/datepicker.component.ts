@@ -116,6 +116,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
     this.input.value = value.format(this.currentOptions.format);
     this.close();
+    this.input.dispatchEvent(new Event('change'));
     this.change.emit(value);
   }
 
@@ -126,6 +127,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
     this.input.value = value.format(this.currentOptions.format);
     // this.close();
+    this.input.dispatchEvent(new Event('change'));
     this.change.emit(value);
   }
 }
