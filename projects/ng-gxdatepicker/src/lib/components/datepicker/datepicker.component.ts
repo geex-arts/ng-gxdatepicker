@@ -3,6 +3,7 @@ import {
   ViewChild
 } from '@angular/core';
 import { fromEvent } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import moment from 'moment';
 import * as _ from 'lodash';
 
@@ -11,6 +12,7 @@ import {
   ComponentDestroyObserver,
   whileComponentNotDestroyed
 } from '../../decorators/component-destroy-observer/component-destroy-observer';
+import { DatepickerService } from '../../services/datepicker.service';
 
 export interface DatepickerOptions {
   theme?: string;
@@ -48,7 +50,8 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   position = DatepickerPosition.BottomLeft;
   positions = DatepickerPosition;
 
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef,
+              private datepickerService: DatepickerService) { }
 
   ngOnInit() {
     fromEvent(this.input, 'focus')
@@ -66,7 +69,6 @@ export class DatepickerComponent implements OnInit, OnDestroy {
           return;
         }
 
-        console.log('click', e.target);
         this.close();
       });
 
@@ -77,6 +79,13 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     fromEvent(this.input, 'key')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe(() => this.calendar.parseValue(this.input.value));
+
+    this.datepickerService.opened$
+      .pipe(
+        filter(opened => opened !== this),
+        whileComponentNotDestroyed(this)
+      )
+      .subscribe(() => this.close());
   }
 
   ngOnDestroy(): void { }
@@ -102,11 +111,16 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   open() {
     this.opened = true;
     this.cd.detectChanges();
+    this.datepickerService.opened = this;
   }
 
   close() {
     this.opened = false;
     this.cd.detectChanges();
+
+    if (this.datepickerService.opened === this) {
+      this.datepickerService.opened = undefined;
+    }
   }
 
   onDateChange(value) {
