@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { ScrollableDirective } from 'ng-gxscrollable';
 
-import { TimeDisplay, TimeOption } from '../../models/time-display';
+import { TimeDisplay, TimeOption, TimeOptionItem } from '../../models/time-display';
 import { DatepickerOptions } from '../datepicker/datepicker.component';
 import { getOffset } from '../../utils/document-utils/document-utils';
 import {
