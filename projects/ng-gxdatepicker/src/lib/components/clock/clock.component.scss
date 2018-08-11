@@ -25,6 +25,31 @@
   padding: 0 4px;
 }
 
+.datepicker-clock__item-content__input-container {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  right: 4px;
+  padding: 4px;
+  background: #fff;
+  transform: translate3d(0, -50%, 0);
+}
+
+.datepicker-clock__item-content__input {
+  display: block;
+  width: 100%;
+  padding: 0;
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  background: #6da5ff;
+  color: #fff;
+  border: 0;
+  border-radius: 3px;
+  text-align: center;
+  outline: 0;
+}
+
 .datepicker-clock-options {
   height: 180px;
   overflow: hidden;
@@ -55,7 +80,7 @@
   }
 
   &_selected, &_selected:hover {
-    background: #6da5ff;
-    color: #fff;
+    //background: #6da5ff;
+    //color: #fff;
   }
 }

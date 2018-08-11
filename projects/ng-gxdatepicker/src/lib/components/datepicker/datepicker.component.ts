@@ -13,15 +13,19 @@ import {
   whileComponentNotDestroyed
 } from '../../decorators/component-destroy-observer/component-destroy-observer';
 import { DatepickerService } from '../../services/datepicker.service';
+import { ClockComponent } from '../clock/clock.component';
 
 export interface DatepickerOptions {
   theme?: string;
   format?: string;
+  date?: boolean;
+  time?: boolean;
 }
 
 export const DefaultDatepickerOptions: DatepickerOptions = {
   theme: 'default',
-  format: 'DD.MM.YYYY HH:mm:ss'
+  date: true,
+  time: true
 };
 
 export enum DatepickerPosition {
@@ -44,6 +48,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   @Input() options: DatepickerOptions = {};
   @ViewChild('root') root: ElementRef;
   @ViewChild(CalendarComponent) calendar: CalendarComponent;
+  @ViewChild(ClockComponent) clock: ClockComponent;
   @Output() change = new EventEmitter<moment.Moment>();
 
   opened = false;
@@ -76,9 +81,13 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     //   .pipe(whileComponentNotDestroyed(this))
     //   .subscribe(() => this.calendar.parseValue(this.input.value));
 
-    fromEvent(this.input, 'key')
+    // fromEvent(this.input, 'keyup')
+    //   .pipe(whileComponentNotDestroyed(this))
+    //   .subscribe(() => this.updateValue());
+
+    fromEvent(this.input, 'keydown')
       .pipe(whileComponentNotDestroyed(this))
-      .subscribe(() => this.calendar.parseValue(this.input.value));
+      .subscribe(() => this.close());
 
     this.datepickerService.opened$
       .pipe(
@@ -91,7 +100,19 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void { }
 
   get currentOptions() {
-    return _.defaults(this.options, DefaultDatepickerOptions);
+    const options = _.defaults(this.options, DefaultDatepickerOptions);
+    if (!options.format) {
+      if (options.date && options.time) {
+        options.format = 'DD.MM.YYYY HH:mm:ss';
+      } else if (options.date) {
+        options.format = 'DD.MM.YYYY';
+      } else if (options.time) {
+        options.format = 'HH:mm:ss';
+      } else {
+        options.format = '';
+      }
+    }
+    return options;
   }
 
   isInside(el, container) {
@@ -108,7 +129,18 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  updateValue() {
+    if (this.currentOptions.date) {
+      this.calendar.parseValue(this.input.value);
+    }
+
+    if (this.currentOptions.time) {
+      this.clock.parseValue(this.input.value);
+    }
+  }
+
   open() {
+    this.updateValue();
     this.opened = true;
     this.cd.detectChanges();
     this.datepickerService.opened = this;
@@ -123,24 +155,38 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     }
   }
 
-  onDateChange(value) {
-    if (!value) {
-      return;
-    }
+  constructValue() {
+    const date = this.currentOptions.date && this.calendar.getValue() ? this.calendar.getValue() : moment();
+    const time = this.currentOptions.time &&  this.clock.getValue() ? this.clock.getValue() : moment();
+
+    return moment().set({
+      year: date.get('year'),
+      month: date.get('month'),
+      date: date.get('date'),
+      hour: time.get('hour'),
+      minute: time.get('minute'),
+      second: time.get('second'),
+      millisecond: time.get('millisecond')
+    });
+  }
+
+  onDateChange() {
+    const value = this.constructValue();
 
     this.input.value = value.format(this.currentOptions.format);
-    this.close();
+
+    if (!this.currentOptions.time) {
+      this.close();
+    }
+
     this.input.dispatchEvent(new Event('change'));
     this.change.emit(value);
   }
 
-  onTimeChange(value) {
-    if (!value) {
-      return;
-    }
+  onTimeChange() {
+    const value = this.constructValue();
 
     this.input.value = value.format(this.currentOptions.format);
-    // this.close();
     this.input.dispatchEvent(new Event('change'));
     this.change.emit(value);
   }
