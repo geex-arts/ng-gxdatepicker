@@ -7,11 +7,11 @@
      #root>
   <div class="datepicker"
        [ngClass]="['datepicker_theme_' + currentOptions.theme]">
-    <div class="datepicker__item">
-      <gxd-calendar (change)="onDateChange($event)"></gxd-calendar>
+    <div *ngIf="currentOptions.date" class="datepicker__item">
+      <gxd-calendar [options]="currentOptions" (change)="onDateChange()"></gxd-calendar>
     </div>
-    <div class="datepicker__item">
-      <gxd-clock (change)="onTimeChange($event)"></gxd-clock>
+    <div *ngIf="currentOptions.time" class="datepicker__item">
+      <gxd-clock [options]="currentOptions" (change)="onTimeChange()"></gxd-clock>
     </div>
   </div>
 </div>

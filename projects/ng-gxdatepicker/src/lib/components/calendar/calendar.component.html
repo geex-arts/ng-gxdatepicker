@@ -2,7 +2,8 @@
   <div class="datepicker-calendar__header">
     <a href="javascript:void(0)"
        class="datepicker-calendar__header-control datepicker-calendar__header-control_left"
-       (tap)="monthDisplay.prevMonth()">
+       (tap)="monthDisplay.prevMonth()"
+       tabindex="-1">
       ←
     </a>
     <span class="datepicker-calendar__header-title">
@@ -10,7 +11,8 @@
     </span>
     <a href="javascript:void(0)"
        class="datepicker-calendar__header-control datepicker-calendar__header-control_right"
-       (tap)="monthDisplay.nextMonth()">
+       (tap)="monthDisplay.nextMonth()"
+       tabindex="-1">
       →
     </a>
   </div>
@@ -34,7 +36,8 @@
           [class.datepicker-calendar__table-cell_weekend]="day.weekend">
         <a href="javascript:void(0)"
            class="datepicker-calendar__table-cell-link"
-           (tap)="select(day.date)">
+           (tap)="select(day.date)"
+           tabindex="-1">
           {{day.date.format('D')}}
         </a>
       </td>

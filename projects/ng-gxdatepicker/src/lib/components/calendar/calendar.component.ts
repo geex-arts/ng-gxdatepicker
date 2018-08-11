@@ -1,8 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy,
+  Output
+} from '@angular/core';
 import moment from 'moment';
 
 import { MonthDisplay } from '../../models/month-display';
 import { ComponentDestroyObserver } from '../../decorators/component-destroy-observer/component-destroy-observer';
+import { DatepickerOptions } from '../datepicker/datepicker.component';
 
 @Component({
   selector: 'gxd-calendar',
@@ -13,6 +17,7 @@ import { ComponentDestroyObserver } from '../../decorators/component-destroy-obs
 @ComponentDestroyObserver
 export class CalendarComponent implements OnDestroy {
 
+  @Input() options: DatepickerOptions = {};
   @Output() change = new EventEmitter<moment.Moment>();
 
   value: moment.Moment;
@@ -22,6 +27,10 @@ export class CalendarComponent implements OnDestroy {
 
   ngOnDestroy(): void { }
 
+  public getValue() {
+    return this.value;
+  }
+
   select(day: moment.Moment) {
     this.value = day;
     this.monthDisplay.date = this.value;
@@ -30,9 +39,14 @@ export class CalendarComponent implements OnDestroy {
   }
 
   parseValue(value: string) {
-    this.value = moment(value, 'DD.MM.YYYY');
-    this.value = moment(this.value.toISOString());
-    this.monthDisplay.date = this.value;
+    const result = moment(value, this.options.format);
+
+    this.value = result.isValid() ? result : undefined;
+
+    if (this.value) {
+      this.monthDisplay.date = this.value;
+    }
+
     this.cd.detectChanges();
   }
 }
