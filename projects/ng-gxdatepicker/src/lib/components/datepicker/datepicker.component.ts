@@ -63,10 +63,6 @@ export class DatepickerComponent implements OnInit, OnDestroy {
       .pipe(whileComponentNotDestroyed(this))
       .subscribe(() => this.open());
 
-    // fromEvent(this.input, 'blur')
-    //   .pipe(whileComponentNotDestroyed(this))
-    //   .subscribe(() => this.close());
-
     fromEvent(document, 'click')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe((e: MouseEvent) => {
@@ -76,14 +72,6 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
         this.close();
       });
-
-    // fromEvent(this.input, 'change')
-    //   .pipe(whileComponentNotDestroyed(this))
-    //   .subscribe(() => this.calendar.parseValue(this.input.value));
-
-    // fromEvent(this.input, 'keyup')
-    //   .pipe(whileComponentNotDestroyed(this))
-    //   .subscribe(() => this.updateValue());
 
     fromEvent(this.input, 'keydown')
       .pipe(whileComponentNotDestroyed(this))
