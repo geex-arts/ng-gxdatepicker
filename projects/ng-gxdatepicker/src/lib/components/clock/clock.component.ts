@@ -114,6 +114,18 @@ export class ClockComponent implements OnInit, OnDestroy {
     if (item && !item.selected) {
       this.select(item.date, true);
     }
+
+    return item != undefined;
+  }
+
+  checkSearchValue(i, e) {
+    if (!this.searchValue(i, e)) {
+      const selected = this.selectedItem(i);
+
+      if (selected) {
+        e.target.value = selected.str;
+      }
+    }
   }
 
   onUpdateSelection(i) {
