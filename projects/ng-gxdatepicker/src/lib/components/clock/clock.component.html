@@ -24,7 +24,8 @@
         <input type="text"
                class="datepicker-clock__item-content__input"
                [value]="selectedItem(i)?.str"
-               (keyup)="searchValue(i, $event)">
+               (keyup)="searchValue(i, $event)"
+               (blur)="checkSearchValue(i, $event)">
       </div>
       <gxs-scrollbar [scrollable]="scrollable" [theme]="'default'" [hideTimeout]="undefined"></gxs-scrollbar>
     </div>
