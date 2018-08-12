@@ -128,9 +128,9 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   }
 
   open() {
-    this.updateValue();
     this.opened = true;
     this.cd.detectChanges();
+    this.updateValue();
     this.datepickerService.opened = this;
   }
 
