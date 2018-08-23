@@ -1,15 +1,20 @@
 
 <div class="datepicker-wrapper">
   <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_1>
-  <gxd-datepicker [options]="{ theme: 'custom' }" [input]="dp_1"></gxd-datepicker>
+  <gxd-datepicker [input]="dp_1"></gxd-datepicker>
 </div>
 
 <div class="datepicker-wrapper">
   <input type="text" placeholder="Date..." (change)="onChanged()" #dp_2>
-  <gxd-datepicker [options]="{ theme: 'custom', date: true, time: false }" [input]="dp_2"></gxd-datepicker>
+  <gxd-datepicker [options]="{ date: true, time: false }" [input]="dp_2"></gxd-datepicker>
 </div>
 
 <div class="datepicker-wrapper">
   <input type="text" placeholder="Time..." (change)="onChanged()" #dp_3>
-  <gxd-datepicker [options]="{ theme: 'custom', date: false, time: true }" [input]="dp_3"></gxd-datepicker>
+  <gxd-datepicker [options]="{ date: false, time: true }" [input]="dp_3"></gxd-datepicker>
+</div>
+
+<div class="datepicker-wrapper">
+  <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_4>
+  <gxd-datepicker [options]="{ theme: 'custom' }" [input]="dp_4"></gxd-datepicker>
 </div>

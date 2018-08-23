@@ -1,0 +1,258 @@
+/* You can add global styles to this file, and also import other style files */
+
+.datepicker-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.datepicker_theme_custom {
+  * {
+    box-sizing: border-box;
+  }
+
+  & {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 20px 60px 0 rgba(0,0,0,0.50);
+    border-radius: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .datepicker__item {
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+
+.datepicker-calendar_theme_custom {
+  & {
+    position: relative;
+    min-width: 200px;
+    background: #3C454D;
+    box-shadow: 0 0 60px 0 rgba(#000, 0.20);
+    padding: 0 6px 6px 6px;
+  }
+
+  .datepicker-calendar__header {
+    position: relative;
+    padding: 20px 10px;
+    text-align: center;
+  }
+
+  .datepicker-calendar__header-title {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #C5CED6;
+    margin: 0 20px;
+  }
+
+  .datepicker-calendar__header-control {
+    &, &:visited, &:hover {
+      color: #C5CED6;
+      text-decoration: none;
+    }
+
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+  }
+
+  .datepicker-calendar__table {
+    border-collapse: collapse;
+  }
+
+  .datepicker-calendar__table-heading {
+    margin: 0;
+    padding: 0;
+    width: percentage(1 / 7);
+    font-size: 13px;
+    font-weight: 500;
+    color: #B8BFCC;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .datepicker-calendar__table-cell {
+    margin: 0;
+    padding: 3px 3px;
+    width: percentage(1 / 7);
+    text-align: center;
+
+    &_another-month {
+      opacity: 0.7;
+    }
+  }
+
+  .datepicker-calendar__table-cell-link {
+    &, &:visited, &:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 16px;
+    text-align: center;
+
+    font-size: 14px;
+    outline: none;
+
+    transition: transform 0.3s ease;
+
+    .datepicker-calendar__table-cell_selected & {
+
+    }
+  }
+
+  .datepicker-calendar__table-cell {
+    &_another-month {
+      .datepicker-calendar__table-cell-link {
+        color: #616A75;
+      }
+    }
+
+    &_today {
+      .datepicker-calendar__table-cell-link {
+        background: rgba(#F2F2F2, 0.1);
+        box-shadow: 0 8px 26px 0 rgba(#1E212D, 0.31);
+      }
+    }
+
+    &_selected {
+      .datepicker-calendar__table-cell-link {
+        background: #2B50ED;
+        box-shadow: 0 8px 26px 0 rgba(#1E212D, 0.31);
+      }
+    }
+
+    &:hover {
+      .datepicker-calendar__table-cell-link {
+        transform: scale(1.28);
+      }
+    }
+  }
+}
+
+.datepicker__item:nth-child(2) {
+  width: 240px;
+}
+
+.datepicker-clock_theme_custom {
+  & {
+    background: #2C343A;
+  }
+
+  .datepicker__item:nth-child(2) & {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .datepicker-clock__item {
+    display: inline-block;
+    width: percentage(1 / 3);
+    min-width: 80px;
+  }
+
+  .datepicker-clock__item-title {
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #C5CED6;
+    text-align: center;
+  }
+
+  .datepicker-clock__item-content {
+    position: relative;
+  }
+
+  .datepicker-clock__item-content__inner {
+    padding: 0 4px;
+  }
+
+  .datepicker-clock__item-content__input-container {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translate3d(0, -50%, 0);
+  }
+
+  .datepicker-clock__item {
+    &:first-child {
+      .datepicker-clock__item-content__input-container {
+        left: 16px;
+      }
+    }
+
+    &:last-child {
+      .datepicker-clock__item-content__input-container {
+        right: 16px;
+      }
+    }
+  }
+
+  .datepicker-clock__item-content__input {
+    display: block;
+    width: 100%;
+    padding: 0;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    background: #3A454D;
+    color: #fff;
+    border: 0;
+    text-align: center;
+    outline: 0;
+  }
+
+  .datepicker-clock__item {
+    &:first-child {
+      .datepicker-clock__item-content__input {
+        padding-right: 16px;
+        border-radius: 6px 0 0 6px;
+      }
+    }
+
+    &:last-child {
+      .datepicker-clock__item-content__input {
+        padding-left: 16px;
+        border-radius: 0 6px 6px 0;
+      }
+    }
+  }
+
+  .datepicker-clock-options {
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .datepicker-clock-options__item {
+    &, &:visited, &:hover {
+      color: #555E68;
+      text-decoration: none;
+    }
+
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    text-align: center;
+    transition: background 0.3s ease, color 0.3s ease;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
