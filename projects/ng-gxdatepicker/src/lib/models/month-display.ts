@@ -41,7 +41,11 @@ export class MonthDisplay {
   }
 
   get displayFirstDay() {
-    return this.monthFirstDay.clone().day(1);
+    if (this.monthFirstDay.clone().day() == 0) {
+      return this.monthFirstDay.clone().subtract(1, 'day').day(1);
+    } else {
+      return this.monthFirstDay.clone().day(1);
+    }
   }
 
   get monthLastDay() {
@@ -49,7 +53,11 @@ export class MonthDisplay {
   }
 
   get displayLastDay() {
-    return this.monthLastDay.clone().day(6).add(1, 'day');
+    if (this.monthLastDay.clone().day() == 0) {
+      return this.monthLastDay.clone();
+    } else {
+      return this.monthLastDay.clone().day(6).add(1, 'day');
+    }
   }
 
   prevMonth() {
