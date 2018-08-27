@@ -48,6 +48,14 @@
     margin: 0 20px;
   }
 
+  .datepicker-calendar__header-month {
+
+  }
+
+  .datepicker-calendar__header-year {
+    margin-left: 4px;
+  }
+
   .datepicker-calendar__header-control {
     &, &:visited, &:hover {
       color: #C5CED6;
