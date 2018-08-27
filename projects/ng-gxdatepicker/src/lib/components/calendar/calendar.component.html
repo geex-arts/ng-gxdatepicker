@@ -1,4 +1,5 @@
-<div class="datepicker-calendar">
+<div class="datepicker-calendar"
+     [ngClass]="['datepicker-calendar_theme_' + options.theme]">
   <div class="datepicker-calendar__header">
     <a href="javascript:void(0)"
        class="datepicker-calendar__header-control datepicker-calendar__header-control_left"
@@ -7,7 +8,8 @@
       ←
     </a>
     <span class="datepicker-calendar__header-title">
-      {{monthDisplay.date.format('MMMM YYYY')}}
+      <span class="datepicker-calendar__header-month">{{monthDisplay.date.format('MMMM')}}</span>
+      <span class="datepicker-calendar__header-year">{{monthDisplay.date.format('YYYY')}}</span>
     </span>
     <a href="javascript:void(0)"
        class="datepicker-calendar__header-control datepicker-calendar__header-control_right"

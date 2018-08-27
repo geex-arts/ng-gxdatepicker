@@ -109,7 +109,7 @@ export class ClockComponent implements OnInit, OnDestroy {
 
   searchValue(i, e) {
     const value = e.target.value;
-    const item = this.timeDisplay.options[i].items.find(item => item.str == value);
+    const item = this.timeDisplay.options[i].items.find(item => parseInt(item.str, 10) == parseInt(value, 10));
 
     if (item && !item.selected) {
       this.select(item.date, true);

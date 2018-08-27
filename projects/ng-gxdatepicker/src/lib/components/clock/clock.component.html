@@ -1,4 +1,5 @@
-<div class="datepicker-clock">
+<div class="datepicker-clock"
+     [ngClass]="['datepicker-clock_theme_' + options.theme]">
   <div *ngFor="let option of timeDisplay.options; trackBy: trackByFn; let i = index" class="datepicker-clock__item">
     <div class="datepicker-clock__item-title">
       {{option.title}}
@@ -27,7 +28,7 @@
                (keyup)="searchValue(i, $event)"
                (blur)="checkSearchValue(i, $event)">
       </div>
-      <gxs-scrollbar [scrollable]="scrollable" [theme]="'default'" [hideTimeout]="undefined"></gxs-scrollbar>
+      <gxs-scrollbar [scrollable]="scrollable" [theme]="options.theme" [hideTimeout]="undefined"></gxs-scrollbar>
     </div>
   </div>
 </div>

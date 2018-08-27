@@ -81,10 +81,10 @@ export class MonthDisplay {
 
         return {
           date: date,
-          today: date.isSame(this.now, 'day'),
-          currentMonth: date.isSame(this.date, 'month'),
+          today: date.isSame(this.now, 'day') && date.isSame(this.now, 'month') && date.isSame(this.now, 'year'),
+          currentMonth: date.isSame(this.date, 'month') && date.isSame(this.date, 'year'),
           weekend: [6, 0].indexOf(date.day()) != -1,
-          selected: date.isSame(this.date, 'day')
+          selected: date.isSame(this.date, 'day') && date.isSame(this.date, 'month') && date.isSame(this.date, 'year')
         };
       });
     });
