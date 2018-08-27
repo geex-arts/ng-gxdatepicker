@@ -33,7 +33,8 @@ export class CalendarComponent implements OnDestroy {
 
   select(day: moment.Moment) {
     this.value = day;
-    this.monthDisplay.date = this.value;
+    this.monthDisplay.selectedDate = this.value.clone();
+    this.monthDisplay.date = this.value.clone();
     this.cd.detectChanges();
     this.change.emit(this.value);
   }
@@ -44,7 +45,8 @@ export class CalendarComponent implements OnDestroy {
     this.value = result.isValid() ? result : undefined;
 
     if (this.value) {
-      this.monthDisplay.date = this.value;
+      this.monthDisplay.selectedDate = this.value.clone();
+      this.monthDisplay.date = this.value.clone();
     }
 
     this.cd.detectChanges();
