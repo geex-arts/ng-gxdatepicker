@@ -16,6 +16,7 @@ export interface DayOfWeek {
 
 export class MonthDisplay {
 
+  selectedDate: moment.Moment;
   weekDays: DayOfWeek[] = [];
   weeks: WeeksDay[][] = [];
 
@@ -92,7 +93,10 @@ export class MonthDisplay {
           today: date.isSame(this.now, 'day') && date.isSame(this.now, 'month') && date.isSame(this.now, 'year'),
           currentMonth: date.isSame(this.date, 'month') && date.isSame(this.date, 'year'),
           weekend: [6, 0].indexOf(date.day()) != -1,
-          selected: date.isSame(this.date, 'day') && date.isSame(this.date, 'month') && date.isSame(this.date, 'year')
+          selected: this.selectedDate
+            && date.isSame(this.selectedDate, 'day')
+            && date.isSame(this.selectedDate, 'month')
+            && date.isSame(this.selectedDate, 'year')
         };
       });
     });
