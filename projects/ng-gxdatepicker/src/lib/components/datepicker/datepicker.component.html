@@ -1,6 +1,7 @@
 <div *ngIf="opened"
      class="datepicker-container"
      [class.datepicker-container_opened]="opened"
+     [class.datepicker-container_static]="options.static"
      [class.datepicker-container_position_bottom-left]="position == positions.BottomLeft"
      [class.datepicker-container_position_bottom-right]="position == positions.BottomRight"
      [class.datepicker-container_position_top-left]="position == positions.TopLeft"

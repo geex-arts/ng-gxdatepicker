@@ -20,12 +20,14 @@ export interface DatepickerOptions {
   format?: string;
   date?: boolean;
   time?: boolean;
+  static?: boolean;
 }
 
 export const DefaultDatepickerOptions: DatepickerOptions = {
   theme: 'default',
   date: true,
-  time: true
+  time: true,
+  static: false
 };
 
 export enum DatepickerPosition {
@@ -66,7 +68,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     fromEvent(document, 'click')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe((e: MouseEvent) => {
-        if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement)) {
+        if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
           return;
         }
 
@@ -83,6 +85,10 @@ export class DatepickerComponent implements OnInit, OnDestroy {
         whileComponentNotDestroyed(this)
       )
       .subscribe(() => this.close());
+
+    if (this.options.static) {
+      this.open();
+    }
   }
 
   ngOnDestroy(): void { }
