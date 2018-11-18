@@ -21,5 +21,8 @@
 
 <div class="datepicker-wrapper">
   <input type="text" placeholder="Date..." (change)="onChanged()" #dp_5>
-  <gxd-datepicker [options]="{ date: true, time: false, static: true }" [input]="dp_5"></gxd-datepicker>
+  <gxd-datepicker
+    [options]="{ date: true, time: false, static: true }"
+    [input]="dp_5"
+    [dateRanges]="dateRanges"></gxd-datepicker>
 </div>

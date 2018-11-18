@@ -10,7 +10,10 @@
   <div class="datepicker"
        [ngClass]="['datepicker_theme_' + currentOptions.theme]">
     <div *ngIf="currentOptions.date" class="datepicker__item">
-      <gxd-calendar [options]="currentOptions" (change)="onDateChange()"></gxd-calendar>
+      <gxd-calendar
+        [options]="currentOptions"
+        [dateRanges]="dateRanges"
+        (change)="onDateChange()"></gxd-calendar>
     </div>
     <div *ngIf="currentOptions.time" class="datepicker__item">
       <gxd-clock [options]="currentOptions" (change)="onTimeChange()"></gxd-clock>

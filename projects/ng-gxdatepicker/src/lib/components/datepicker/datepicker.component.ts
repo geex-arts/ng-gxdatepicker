@@ -14,6 +14,7 @@ import {
 } from '../../decorators/component-destroy-observer/component-destroy-observer';
 import { DatepickerService } from '../../services/datepicker.service';
 import { ClockComponent } from '../clock/clock.component';
+import { DateRange } from '../../models/date-range';
 
 export interface DatepickerOptions {
   theme?: string;
@@ -48,6 +49,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
   @Input() input: any;
   @Input() options: DatepickerOptions = {};
+  @Input() dateRanges: DateRange[];
   @ViewChild('root') root: ElementRef;
   @ViewChild(CalendarComponent) calendar: CalendarComponent;
   @ViewChild(ClockComponent) clock: ClockComponent;

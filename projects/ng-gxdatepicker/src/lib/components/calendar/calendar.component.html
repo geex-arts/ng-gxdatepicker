@@ -35,7 +35,9 @@
           [class.datepicker-calendar__table-cell_another-month]="!day.currentMonth"
           [class.datepicker-calendar__table-cell_today]="day.today"
           [class.datepicker-calendar__table-cell_selected]="day.selected"
-          [class.datepicker-calendar__table-cell_weekend]="day.weekend">
+          [class.datepicker-calendar__table-cell_weekend]="day.weekend"
+          [class.datepicker-calendar__table-cell_enabled]="isDateEnabled(day.date) === true"
+          [class.datepicker-calendar__table-cell_disabled]="isDateEnabled(day.date) === false">
         <a href="javascript:void(0)"
            class="datepicker-calendar__table-cell-link"
            (tap)="select(day.date)"
