@@ -27,6 +27,22 @@ export class CalendarComponent implements OnDestroy {
 
   constructor(private cd: ChangeDetectorRef) { }
 
+  ngOnInit() {
+    if (this.dateRanges) {
+      this.fillEnabledDays();
+    }
+  }
+
+  fillEnabledDays() {
+    this.monthDisplay.weeks.forEach(week => {
+      week.forEach(day => {
+        if (this.isDateEnabled(day.date) !== null) {
+          day.enabled = this.isDateEnabled(day.date);
+        }
+      });
+    });
+  }
+
   ngOnDestroy(): void { }
 
   public getValue() {
@@ -68,6 +84,21 @@ export class CalendarComponent implements OnDestroy {
       return range.enable;
     } else {
       return null;
+    }
+  }
+
+  goToPrevMonth() {
+    this.monthDisplay.prevMonth();
+
+    if (this.dateRanges) {
+      this.fillEnabledDays();
+    }
+  }
+  goToNextMonth() {
+    this.monthDisplay.nextMonth();
+
+    if (this.dateRanges) {
+      this.fillEnabledDays();
     }
   }
 }
