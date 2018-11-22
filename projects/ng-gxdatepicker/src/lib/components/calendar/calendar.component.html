@@ -3,7 +3,7 @@
   <div class="datepicker-calendar__header">
     <a href="javascript:void(0)"
        class="datepicker-calendar__header-control datepicker-calendar__header-control_left"
-       (tap)="monthDisplay.prevMonth()"
+       (tap)="goToPrevMonth()"
        tabindex="-1">
       ←
     </a>
@@ -13,7 +13,7 @@
     </span>
     <a href="javascript:void(0)"
        class="datepicker-calendar__header-control datepicker-calendar__header-control_right"
-       (tap)="monthDisplay.nextMonth()"
+       (tap)="goToNextMonth()"
        tabindex="-1">
       →
     </a>
@@ -35,7 +35,9 @@
           [class.datepicker-calendar__table-cell_another-month]="!day.currentMonth"
           [class.datepicker-calendar__table-cell_today]="day.today"
           [class.datepicker-calendar__table-cell_selected]="day.selected"
-          [class.datepicker-calendar__table-cell_weekend]="day.weekend">
+          [class.datepicker-calendar__table-cell_weekend]="day.weekend"
+          [class.datepicker-calendar__table-cell_enabled]="day.enabled === true"
+          [class.datepicker-calendar__table-cell_disabled]="day.enabled === false">
         <a href="javascript:void(0)"
            class="datepicker-calendar__table-cell-link"
            (tap)="select(day.date)"

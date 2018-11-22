@@ -6,6 +6,12 @@
   transition: opacity 0.3s ease;
   z-index: 9999;
 
+  &_static {
+    position: static;
+    pointer-events: auto;
+    opacity: 1;
+  }
+
   &_position {
     &_bottom-left {
       top: 100%;
