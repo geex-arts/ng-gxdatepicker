@@ -14,18 +14,21 @@ import {
 } from '../../decorators/component-destroy-observer/component-destroy-observer';
 import { DatepickerService } from '../../services/datepicker.service';
 import { ClockComponent } from '../clock/clock.component';
+import { DateRange } from '../../models/date-range';
 
 export interface DatepickerOptions {
   theme?: string;
   format?: string;
   date?: boolean;
   time?: boolean;
+  static?: boolean;
 }
 
 export const DefaultDatepickerOptions: DatepickerOptions = {
   theme: 'default',
   date: true,
-  time: true
+  time: true,
+  static: false
 };
 
 export enum DatepickerPosition {
@@ -46,6 +49,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
   @Input() input: any;
   @Input() options: DatepickerOptions = {};
+  @Input() dateRanges: DateRange[];
   @ViewChild('root') root: ElementRef;
   @ViewChild(CalendarComponent) calendar: CalendarComponent;
   @ViewChild(ClockComponent) clock: ClockComponent;
@@ -66,7 +70,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     fromEvent(document, 'click')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe((e: MouseEvent) => {
-        if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement)) {
+        if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
           return;
         }
 
@@ -83,6 +87,10 @@ export class DatepickerComponent implements OnInit, OnDestroy {
         whileComponentNotDestroyed(this)
       )
       .subscribe(() => this.close());
+
+    if (this.options.static) {
+      this.open();
+    }
   }
 
   ngOnDestroy(): void { }
