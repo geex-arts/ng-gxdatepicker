@@ -171,7 +171,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
     this.input.value = value.format(this.currentOptions.format);
 
-    if (!this.currentOptions.time) {
+    if (!this.currentOptions.time && !this.options.static) {
       this.close();
     }
 

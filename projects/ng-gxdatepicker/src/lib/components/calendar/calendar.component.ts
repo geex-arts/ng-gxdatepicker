@@ -55,6 +55,10 @@ export class CalendarComponent implements OnDestroy {
     this.monthDisplay.date = this.value.clone();
     this.cd.detectChanges();
     this.change.emit(this.value);
+
+    if (this.dateRanges) {
+      this.fillEnabledDays();
+    }
   }
 
   parseValue(value: string) {
