@@ -7,6 +7,7 @@ export interface WeeksDay {
   currentMonth: boolean;
   weekend: boolean;
   selected: boolean;
+  enabled: boolean;
 }
 
 export interface DayOfWeek {
