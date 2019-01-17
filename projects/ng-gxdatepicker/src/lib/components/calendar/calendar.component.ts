@@ -105,4 +105,11 @@ export class CalendarComponent implements OnDestroy {
       this.fillEnabledDays();
     }
   }
+
+  goToPrevYear() {
+
+  }
+  goToNextYear() {
+
+  }
 }
