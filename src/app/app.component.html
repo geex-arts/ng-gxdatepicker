@@ -1,28 +1,45 @@
-
-<div class="datepicker-wrapper">
-  <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_1>
-  <gxd-datepicker [input]="dp_1"></gxd-datepicker>
+<div>
+  <div class="datepicker-wrapper">
+    <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_1>
+    <gxd-datepicker [input]="dp_1"></gxd-datepicker>
+  </div>
 </div>
 
-<div class="datepicker-wrapper">
-  <input type="text" placeholder="Date..." (change)="onChanged()" #dp_2>
-  <gxd-datepicker [options]="{ date: true, time: false }" [input]="dp_2"></gxd-datepicker>
+<div>
+  <div class="datepicker-wrapper">
+    <input type="text" placeholder="Date..." (change)="onChanged()" #dp_2>
+    <gxd-datepicker [options]="{ date: true, time: false }" [input]="dp_2"></gxd-datepicker>
+  </div>
 </div>
 
-<div class="datepicker-wrapper">
-  <input type="text" placeholder="Time..." (change)="onChanged()" #dp_3>
-  <gxd-datepicker [options]="{ date: false, time: true }" [input]="dp_3"></gxd-datepicker>
+<div>
+  <div class="datepicker-wrapper">
+    <input type="text" placeholder="Time..." (change)="onChanged()" #dp_3>
+    <gxd-datepicker [options]="{ date: false, time: true }" [input]="dp_3"></gxd-datepicker>
+  </div>
 </div>
 
-<div class="datepicker-wrapper">
-  <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_4>
-  <gxd-datepicker [options]="{ theme: 'custom' }" [input]="dp_4"></gxd-datepicker>
+<div>
+  <div class="datepicker-wrapper">
+    <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_4>
+    <gxd-datepicker [options]="{ theme: 'custom' }" [input]="dp_4"></gxd-datepicker>
+  </div>
 </div>
 
-<div class="datepicker-wrapper">
-  <input type="text" placeholder="Date..." (change)="onChanged()" #dp_5>
-  <gxd-datepicker
-    [options]="{ date: true, time: false, static: true }"
-    [input]="dp_5"
-    [dateRanges]="dateRanges"></gxd-datepicker>
+<div>
+  <div class="datepicker-wrapper">
+    <input type="text" placeholder="Date..." (change)="onChanged()" #dp_5>
+    <gxd-datepicker
+      [options]="{ date: true, time: false, static: true }"
+      [input]="dp_5"
+      [dateRanges]="dateRanges"></gxd-datepicker>
+  </div>
+</div>
+
+<div>
+  <div [formGroup]="form" class="datepicker-wrapper">
+    <div>FormControl value: {{form.value['datetime']}}</div>
+    <input type="text" formControlName="datetime" placeholder="Date time form..." (change)="onChanged()" #dp_6>
+    <gxd-datepicker [input]="dp_6"></gxd-datepicker>
+  </div>
 </div>

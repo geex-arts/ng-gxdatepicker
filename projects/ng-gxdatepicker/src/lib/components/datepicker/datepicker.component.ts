@@ -175,15 +175,21 @@ export class DatepickerComponent implements OnInit, OnDestroy {
       this.close();
     }
 
-    this.input.dispatchEvent(new Event('change'));
+    const event = document.createEvent('Event');
+
+    event.initEvent('input', true, true);
+    this.input.dispatchEvent(event);
     this.change.emit(value);
   }
 
   onTimeChange() {
     const value = this.constructValue();
+    const event = document.createEvent('Event');
 
     this.input.value = value.format(this.currentOptions.format);
-    this.input.dispatchEvent(new Event('change'));
+
+    event.initEvent('input', true, true);
+    this.input.dispatchEvent(event);
     this.change.emit(value);
   }
 }
