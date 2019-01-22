@@ -72,6 +72,16 @@ export class MonthDisplay {
     this.updateWeeks();
   }
 
+  prevYear() {
+    this.date.subtract(1, 'year');
+    this.updateWeeks();
+  }
+
+  nextYear() {
+    this.date.add(1, 'year');
+    this.updateWeeks();
+  }
+
   private updateWeeks() {
     const firstDay = this.displayFirstDay;
     const weeks = Math.ceil(this.displayLastDay.diff(this.displayFirstDay, 'weeks', true));
