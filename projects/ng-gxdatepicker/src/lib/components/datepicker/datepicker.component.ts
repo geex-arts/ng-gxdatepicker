@@ -5,7 +5,7 @@ import {
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import moment from 'moment';
-import * as _ from 'lodash';
+import defaults from 'lodash/defaults';
 
 import { CalendarComponent } from '../calendar/calendar.component';
 import {
@@ -96,7 +96,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void { }
 
   get currentOptions() {
-    const options = _.defaults(this.options, DefaultDatepickerOptions);
+    const options = defaults(this.options, DefaultDatepickerOptions);
     if (!options.format) {
       if (options.date && options.time) {
         options.format = 'DD.MM.YYYY HH:mm:ss';
