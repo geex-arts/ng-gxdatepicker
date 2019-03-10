@@ -1,5 +1,5 @@
 import moment from 'moment';
-import * as _ from 'lodash';
+import range from 'lodash/range';
 
 export interface WeeksDay {
   date: moment.Moment;
@@ -86,7 +86,7 @@ export class MonthDisplay {
     const firstDay = this.displayFirstDay;
     const weeks = Math.ceil(this.displayLastDay.diff(this.displayFirstDay, 'weeks', true));
 
-    this.weekDays = _.range(0, 6 + 1).map(day => {
+    this.weekDays = range(0, 6 + 1).map(day => {
       const date = firstDay.clone().add(day, 'days');
 
       return {
@@ -95,8 +95,8 @@ export class MonthDisplay {
       };
     });
 
-    this.weeks = _.range(0, weeks).map(week => {
-      return _.range(0, 7).map(day => {
+    this.weeks = range(0, weeks).map(week => {
+      return range(0, 7).map(day => {
         const date = firstDay.clone().add(week, 'weeks').add(day, 'days');
 
         return {

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import * as _ from 'lodash';
+import range from 'lodash/range';
 
 export interface TimeOptionItem {
   date: moment.Moment;
@@ -38,7 +38,7 @@ export class TimeDisplay {
   }
 
   private updateTime() {
-    this.hours = _.range(0, 23 + 1).map(hour => {
+    this.hours = range(0, 23 + 1).map(hour => {
       const date = this.date.clone().hour(hour);
 
       return {
@@ -49,7 +49,7 @@ export class TimeDisplay {
       };
     });
 
-    this.minutes = _.range(0, 59 + 1).map(minute => {
+    this.minutes = range(0, 59 + 1).map(minute => {
       const date = this.date.clone().minute(minute);
 
       return {
@@ -60,7 +60,7 @@ export class TimeDisplay {
       };
     });
 
-    this.seconds = _.range(0, 59 + 1).map(second => {
+    this.seconds = range(0, 59 + 1).map(second => {
       const date = this.date.clone().second(second);
 
       return {
