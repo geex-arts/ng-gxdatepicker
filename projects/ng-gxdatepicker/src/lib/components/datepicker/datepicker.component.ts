@@ -67,7 +67,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
       .pipe(whileComponentNotDestroyed(this))
       .subscribe(() => this.open());
 
-    fromEvent(document, 'click')
+    fromEvent(window, 'click')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe((e: MouseEvent) => {
         if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
@@ -75,6 +75,18 @@ export class DatepickerComponent implements OnInit, OnDestroy {
         }
 
         this.close();
+        this.input.blur();
+      });
+
+    fromEvent(window, 'touchend')
+      .pipe(whileComponentNotDestroyed(this))
+      .subscribe((e: TouchEvent) => {
+        if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
+          return;
+        }
+
+        this.close();
+        this.input.blur();
       });
 
     fromEvent(this.input, 'keydown')
