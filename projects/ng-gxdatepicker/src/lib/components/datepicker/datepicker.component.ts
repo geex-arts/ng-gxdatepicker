@@ -1,7 +1,8 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output,
-  ViewChild
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit,
+  Output, PLATFORM_ID, ViewChild
 } from '@angular/core';
+import { isPlatformServer } from '@angular/common';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import moment from 'moment';
@@ -60,14 +61,19 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   positions = DatepickerPosition;
 
   constructor(private cd: ChangeDetectorRef,
+              @Inject(PLATFORM_ID) private platformId: Object,
               private datepickerService: DatepickerService) { }
 
   ngOnInit() {
+    if (this.isPlatformServer()) {
+      return;
+    }
+
     fromEvent(this.input, 'focus')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe(() => this.open());
 
-    fromEvent(document, 'click')
+    fromEvent(window, 'click')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe((e: MouseEvent) => {
         if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
@@ -75,6 +81,18 @@ export class DatepickerComponent implements OnInit, OnDestroy {
         }
 
         this.close();
+        this.input.blur();
+      });
+
+    fromEvent(window, 'touchend')
+      .pipe(whileComponentNotDestroyed(this))
+      .subscribe((e: TouchEvent) => {
+        if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
+          return;
+        }
+
+        this.close();
+        this.input.blur();
       });
 
     fromEvent(this.input, 'keydown')
@@ -94,6 +112,10 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void { }
+
+  isPlatformServer() {
+    return isPlatformServer(this.platformId);
+  }
 
   get currentOptions() {
     const options = defaults(this.options, DefaultDatepickerOptions);
