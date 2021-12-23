@@ -158,6 +158,10 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   }
 
   open() {
+    if (this.options.static) {
+      return;
+    }
+
     this.opened = true;
     this.cd.detectChanges();
     this.updateValue();
@@ -165,6 +169,10 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   }
 
   close() {
+    if (this.options.static) {
+      return;
+    }
+
     this.opened = false;
     this.cd.detectChanges();
 
