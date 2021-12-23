@@ -28,11 +28,14 @@
 
 <div>
   <div class="datepicker-wrapper">
-    <input type="text" placeholder="Date..." (change)="onChanged()" #dp_5>
+    <input type="text" placeholder="Static date..." (change)="onChanged()" #dp_5>
+  </div>
+  <div>
     <gxd-datepicker
       [options]="{ date: true, time: false, static: true }"
       [input]="dp_5"
-      [dateRanges]="dateRanges"></gxd-datepicker>
+      [dateRanges]="dateRanges">
+    </gxd-datepicker>
   </div>
 </div>
 
