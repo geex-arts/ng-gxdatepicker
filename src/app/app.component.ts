@@ -15,7 +15,8 @@ export class AppComponent {
     {fromDate: '2018-12-10T00:00:00', toDate: '2018-12-12T00:00:00', enable: false}
   ];
   form = new FormGroup({
-    datetime: new FormControl('')
+    datetime: new FormControl(''),
+    staticDatetime: new FormControl('12-11-2018')
   });
 
   onChanged() {

@@ -26,9 +26,9 @@
   </div>
 </div>
 
-<div>
+<div [formGroup]="form">
   <div class="datepicker-wrapper">
-    <input type="text" placeholder="Static date..." (change)="onChanged()" #dp_5>
+    <input type="text" formControlName="staticDatetime" placeholder="Static date..." (change)="onChanged()" #dp_5>
   </div>
   <div>
     <gxd-datepicker
@@ -39,8 +39,8 @@
   </div>
 </div>
 
-<div>
-  <div [formGroup]="form" class="datepicker-wrapper">
+<div [formGroup]="form">
+  <div class="datepicker-wrapper">
     <div>FormControl value: {{form.value['datetime']}}</div>
     <input type="text" formControlName="datetime" placeholder="Date time form..." (change)="onChanged()" #dp_6>
     <gxd-datepicker [input]="dp_6"></gxd-datepicker>
