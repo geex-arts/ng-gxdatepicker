@@ -1,35 +1,26 @@
 <div>
-  <div class="datepicker-wrapper">
-    <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_1 cdkOverlayOrigin #dp_1_trigger="cdkOverlayOrigin">
-    <gxd-datepicker [input]="dp_1" [origin]="dp_1_trigger" [options]="{ margin: 8 }"></gxd-datepicker>
-  </div>
+  <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_1 cdkOverlayOrigin #dp_1_trigger="cdkOverlayOrigin">
+  <gxd-datepicker [input]="dp_1" [origin]="dp_1_trigger" [options]="{ margin: 8 }"></gxd-datepicker>
 </div>
 
 <div>
-  <div class="datepicker-wrapper">
-    <input type="text" placeholder="Date..." (change)="onChanged()" #dp_2 cdkOverlayOrigin #dp_2_trigger="cdkOverlayOrigin">
-    <gxd-datepicker [input]="dp_2" [origin]="dp_2_trigger" [options]="{ date: true, time: false, margin: 8 }"></gxd-datepicker>
-  </div>
+  <input type="text" placeholder="Date..." (change)="onChanged()" #dp_2 cdkOverlayOrigin #dp_2_trigger="cdkOverlayOrigin">
+  <gxd-datepicker [input]="dp_2" [origin]="dp_2_trigger" [options]="{ date: true, time: false, margin: 8 }"></gxd-datepicker>
 </div>
 
 <div>
-  <div class="datepicker-wrapper">
-    <input type="text" placeholder="Time..." (change)="onChanged()" #dp_3 cdkOverlayOrigin #dp_3_trigger="cdkOverlayOrigin">
-    <gxd-datepicker [input]="dp_3" [origin]="dp_3_trigger" [options]="{ date: false, time: true, margin: 8 }"></gxd-datepicker>
-  </div>
+  <input type="text" placeholder="Time..." (change)="onChanged()" #dp_3 cdkOverlayOrigin #dp_3_trigger="cdkOverlayOrigin">
+  <gxd-datepicker [input]="dp_3" [origin]="dp_3_trigger" [options]="{ date: false, time: true, margin: 8 }"></gxd-datepicker>
 </div>
 
 <div>
-  <div class="datepicker-wrapper">
-    <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_4 cdkOverlayOrigin #dp_4_trigger="cdkOverlayOrigin">
-    <gxd-datepicker [input]="dp_4" [origin]="dp_4_trigger" [options]="{ theme: 'custom', margin: 8 }"></gxd-datepicker>
-  </div>
+  <input type="text" placeholder="Date time..." (change)="onChanged()" #dp_4 cdkOverlayOrigin #dp_4_trigger="cdkOverlayOrigin">
+  <gxd-datepicker [input]="dp_4" [origin]="dp_4_trigger" [options]="{ theme: 'custom', margin: 8 }"></gxd-datepicker>
 </div>
 
 <div [formGroup]="form">
-  <div class="datepicker-wrapper">
+  <div>
     <input type="text" formControlName="staticDatetime" placeholder="Static date..." (change)="onChanged()" #dp_5>
-  </div>
   <div>
     <gxd-datepicker
       [options]="{ date: true, time: false, static: true }"
@@ -40,9 +31,7 @@
 </div>
 
 <div [formGroup]="form">
-  <div class="datepicker-wrapper">
-    <div>FormControl value: {{form.value['datetime']}}</div>
-    <input type="text" formControlName="datetime" placeholder="Date time form..." (change)="onChanged()" #dp_6 cdkOverlayOrigin #dp_6_trigger="cdkOverlayOrigin">
-    <gxd-datepicker [input]="dp_6" [origin]="dp_6_trigger" [options]="{ margin: 8 }"></gxd-datepicker>
-  </div>
+  <div>FormControl value: {{form.value['datetime']}}</div>
+  <input type="text" formControlName="datetime" placeholder="Date time form..." (change)="onChanged()" #dp_6 cdkOverlayOrigin #dp_6_trigger="cdkOverlayOrigin">
+  <gxd-datepicker [input]="dp_6" [origin]="dp_6_trigger" [options]="{ margin: 8 }"></gxd-datepicker>
 </div>
