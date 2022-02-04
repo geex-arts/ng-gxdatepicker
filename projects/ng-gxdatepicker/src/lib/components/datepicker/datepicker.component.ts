@@ -3,6 +3,7 @@ import {
   Output, PLATFORM_ID, ViewChild
 } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
+import { CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { fromEvent } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import moment from 'moment';
@@ -23,21 +24,16 @@ export interface DatepickerOptions {
   date?: boolean;
   time?: boolean;
   static?: boolean;
+  margin?: number;
 }
 
 export const DefaultDatepickerOptions: DatepickerOptions = {
   theme: 'default',
   date: true,
   time: true,
-  static: false
+  static: false,
+  margin: 0
 };
-
-export enum DatepickerPosition {
-  BottomLeft,
-  BottomRight,
-  TopLeft,
-  TopRight
-}
 
 @Component({
   selector: 'gxd-datepicker',
@@ -49,6 +45,7 @@ export enum DatepickerPosition {
 export class DatepickerComponent implements OnInit, OnDestroy {
 
   @Input() input: any;
+  @Input() origin: CdkOverlayOrigin;
   @Input() options: DatepickerOptions = {};
   @Input() dateRanges: DateRange[];
   @ViewChild('root') root: ElementRef;
@@ -57,8 +54,6 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   @Output() change = new EventEmitter<moment.Moment>();
 
   opened = false;
-  position = DatepickerPosition.BottomLeft;
-  positions = DatepickerPosition;
 
   constructor(private cd: ChangeDetectorRef,
               @Inject(PLATFORM_ID) private platformId: Object,
@@ -76,7 +71,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     fromEvent(window, 'click')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe((e: MouseEvent) => {
-        if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
+        if (!this.opened || e.target === this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
           return;
         }
 
@@ -87,7 +82,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     fromEvent(window, 'touchend')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe((e: TouchEvent) => {
-        if (!this.opened || e.target == this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
+        if (!this.opened || e.target === this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
           return;
         }
 
@@ -137,7 +132,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     let node = el;
 
     while (node) {
-      if (node == container) {
+      if (node === container) {
         return true;
       } else {
         node = node.parentElement;

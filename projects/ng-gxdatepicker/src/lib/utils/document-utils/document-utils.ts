@@ -1,7 +1,7 @@
 
 
 export function hasClass(element, className) {
-  return element.className.split(' ').indexOf(className) != -1;
+  return element.className.split(' ').indexOf(className) !== -1;
 }
 
 export function addClass(element, className) {
@@ -11,7 +11,7 @@ export function addClass(element, className) {
 }
 
 export function removeClass(element, className) {
-  element.className = element.className.split(' ').filter(item => item != className).join(' ');
+  element.className = element.className.split(' ').filter(item => item !== className).join(' ');
 }
 
 export function isElementInViewport(element) {
@@ -28,7 +28,7 @@ export function getOffset(element, relativeTo = null) {
     y += element.offsetTop - element.scrollTop;
     element = element.offsetParent;
 
-    if (relativeTo && element == relativeTo) {
+    if (relativeTo && element === relativeTo) {
       break;
     }
   }

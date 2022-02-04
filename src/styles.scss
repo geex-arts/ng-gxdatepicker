@@ -1,9 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-.datepicker-wrapper {
-  display: inline-block;
-  position: relative;
-}
+@import '~@angular/cdk/overlay-prebuilt.css';
 
 .datepicker_theme_custom {
   * {

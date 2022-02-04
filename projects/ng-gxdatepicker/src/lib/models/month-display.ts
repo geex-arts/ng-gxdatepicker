@@ -43,7 +43,7 @@ export class MonthDisplay {
   }
 
   get displayFirstDay() {
-    if (this.monthFirstDay.clone().day() == 0) {
+    if (this.monthFirstDay.clone().day() === 0) {
       return this.monthFirstDay.clone().subtract(1, 'day').day(1);
     } else {
       return this.monthFirstDay.clone().day(1);
@@ -55,7 +55,7 @@ export class MonthDisplay {
   }
 
   get displayLastDay() {
-    if (this.monthLastDay.clone().day() == 0) {
+    if (this.monthLastDay.clone().day() === 0) {
       return this.monthLastDay.clone();
     } else {
       return this.monthLastDay.clone().day(6).add(1, 'day');
@@ -91,7 +91,7 @@ export class MonthDisplay {
 
       return {
         date: date,
-        weekend: [6, 0].indexOf(date.day()) != -1
+        weekend: [6, 0].indexOf(date.day()) !== -1
       };
     });
 
@@ -103,7 +103,7 @@ export class MonthDisplay {
           date: date,
           today: date.isSame(this.now, 'day') && date.isSame(this.now, 'month') && date.isSame(this.now, 'year'),
           currentMonth: date.isSame(this.date, 'month') && date.isSame(this.date, 'year'),
-          weekend: [6, 0].indexOf(date.day()) != -1,
+          weekend: [6, 0].indexOf(date.day()) !== -1,
           selected: this.selectedDate
             && date.isSame(this.selectedDate, 'day')
             && date.isSame(this.selectedDate, 'month')

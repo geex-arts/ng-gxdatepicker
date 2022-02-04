@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { NgGxScrollableModule } from 'ng-gxscrollable';
 
 import 'hammerjs';
@@ -11,6 +12,7 @@ import { ClockComponent } from './components/clock/clock.component';
 @NgModule({
   imports: [
     CommonModule,
+    OverlayModule,
     NgGxScrollableModule
   ],
   declarations: [
