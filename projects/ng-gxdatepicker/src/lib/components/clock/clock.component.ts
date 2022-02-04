@@ -81,7 +81,7 @@ export class ClockComponent implements OnInit, OnDestroy {
     this.timeDisplay.options.forEach((option, i) => {
       const index = option.items.findIndex(item => item.selected);
 
-      if (index == -1) {
+      if (index === -1) {
         return;
       }
 
@@ -109,13 +109,13 @@ export class ClockComponent implements OnInit, OnDestroy {
 
   searchValue(i, e) {
     const value = e.target.value;
-    const item = this.timeDisplay.options[i].items.find(item => parseInt(item.str, 10) == parseInt(value, 10));
+    const match = this.timeDisplay.options[i].items.find(item => parseInt(item.str, 10) === parseInt(value, 10));
 
-    if (item && !item.selected) {
-      this.select(item.date, true);
+    if (match && !match.selected) {
+      this.select(match.date, true);
     }
 
-    return item != undefined;
+    return match !== undefined;
   }
 
   checkSearchValue(i, e) {
@@ -146,7 +146,7 @@ export class ClockComponent implements OnInit, OnDestroy {
     const items = this.timeDisplay.options[i].items;
     const oldIndex = items.findIndex(item => item.selected);
 
-    if (oldIndex == index) {
+    if (oldIndex === index) {
       return;
     }
 

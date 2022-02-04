@@ -1,5 +1,5 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy,
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit,
   Output
 } from '@angular/core';
 import moment from 'moment';
@@ -16,7 +16,7 @@ import { DateRange } from '../../models/date-range';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 @ComponentDestroyObserver
-export class CalendarComponent implements OnDestroy {
+export class CalendarComponent implements OnInit, OnDestroy {
 
   @Input() options: DatepickerOptions = {};
   @Input() dateRanges: DateRange[];
@@ -75,10 +75,10 @@ export class CalendarComponent implements OnDestroy {
   }
 
   isDateEnabled(date: any) {
-    let range = this.dateRanges.find(range => {
+    const range = this.dateRanges.find(item => {
       const format = 'YYYY-MM-DD';
-      const fromDate = moment(range.fromDate).format(format);
-      const toDate = moment(range.toDate).format(format);
+      const fromDate = moment(item.fromDate).format(format);
+      const toDate = moment(item.toDate).format(format);
       const formattedDate = date.format(format);
 
       return formattedDate >= fromDate && formattedDate <= toDate;
