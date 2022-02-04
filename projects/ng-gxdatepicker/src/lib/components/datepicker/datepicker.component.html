@@ -1,22 +1,44 @@
-<div *ngIf="opened || options.static"
-     class="datepicker-container"
-     [class.datepicker-container_opened]="opened"
-     [class.datepicker-container_static]="options.static"
-     [class.datepicker-container_position_bottom-left]="position == positions.BottomLeft"
-     [class.datepicker-container_position_bottom-right]="position == positions.BottomRight"
-     [class.datepicker-container_position_top-left]="position == positions.TopLeft"
-     [class.datepicker-container_position_top-right]="position == positions.TopRight"
-     #root>
-  <div class="datepicker"
-       [ngClass]="['datepicker_theme_' + currentOptions.theme]">
-    <div *ngIf="currentOptions.date" class="datepicker__item">
-      <gxd-calendar
-        [options]="currentOptions"
-        [dateRanges]="dateRanges"
-        (change)="onDateChange()"></gxd-calendar>
-    </div>
-    <div *ngIf="currentOptions.time" class="datepicker__item">
-      <gxd-clock [options]="currentOptions" (change)="onTimeChange()"></gxd-clock>
+<ng-template #datepicker_container>
+  <div
+    class="datepicker-container"
+    [class.datepicker-container_static]="options.static"
+    #root
+  >
+    <div
+      class="datepicker"
+      [ngClass]="['datepicker_theme_' + currentOptions.theme]"
+    >
+      <div *ngIf="currentOptions.date" class="datepicker__item">
+        <gxd-calendar
+          [options]="currentOptions"
+          [dateRanges]="dateRanges"
+          (change)="onDateChange()"></gxd-calendar>
+      </div>
+      <div *ngIf="currentOptions.time" class="datepicker__item">
+        <gxd-clock [options]="currentOptions" (change)="onTimeChange()"></gxd-clock>
+      </div>
     </div>
   </div>
-</div>
+</ng-template>
+
+<ng-container *ngIf="options.static">
+  <ng-container *ngTemplateOutlet="datepicker_container"></ng-container>
+</ng-container>
+
+<ng-container *ngIf="!options.static">
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayPositions]="[
+      { originX: 'start', overlayX: 'start', originY: 'bottom', overlayY: 'top', offsetX: 0, offsetY: currentOptions.margin },
+      { originX: 'start', overlayX: 'start', originY: 'top', overlayY: 'bottom', offsetX: 0, offsetY: -currentOptions.margin },
+      { originX: 'end', overlayX: 'end', originY: 'bottom', overlayY: 'top', offsetX: 0, offsetY: currentOptions.margin },
+      { originX: 'end', overlayX: 'end', originY: 'top', overlayY: 'bottom', offsetX: 0, offsetY: -currentOptions.margin }
+    ]"
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="opened"
+    [cdkConnectedOverlayPush]="true"
+    [cdkConnectedOverlayGrowAfterOpen]="true"
+  >
+    <ng-container *ngTemplateOutlet="datepicker_container"></ng-container>
+  </ng-template>
+</ng-container>

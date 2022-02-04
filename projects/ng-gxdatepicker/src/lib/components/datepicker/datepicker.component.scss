@@ -1,42 +1,6 @@
 .datepicker-container {
-  display: inline-block;
-  position: absolute;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 9999;
-
   &_static {
-    position: static;
-    pointer-events: auto;
-    opacity: 1;
-  }
 
-  &_position {
-    &_bottom-left {
-      top: 100%;
-      left: 0;
-    }
-
-    &_bottom-right {
-      top: 100%;
-      right: 0;
-    }
-
-    &_top-left {
-      bottom: 100%;
-      left: 0;
-    }
-
-    &_top-right {
-      bottom: 100%;
-      right: 0;
-    }
-  }
-
-  &_opened {
-    pointer-events: auto;
-    opacity: 1;
   }
 }
 
