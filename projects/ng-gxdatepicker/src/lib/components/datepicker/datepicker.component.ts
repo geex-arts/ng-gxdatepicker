@@ -68,7 +68,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
       .pipe(whileComponentNotDestroyed(this))
       .subscribe(() => this.open());
 
-    fromEvent(window, 'click')
+    fromEvent(window, 'mousedown')
       .pipe(whileComponentNotDestroyed(this))
       .subscribe((e: MouseEvent) => {
         if (!this.opened || e.target === this.input || this.isInside(e.target, this.root.nativeElement) || this.options.static) {
