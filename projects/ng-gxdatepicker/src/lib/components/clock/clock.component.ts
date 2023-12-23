@@ -1,5 +1,16 @@
 import {
-  ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, QueryList, ViewChildren
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  QueryList,
+  SimpleChanges,
+  ViewChildren
 } from '@angular/core';
 import moment from 'moment';
 import { Subject } from 'rxjs';
@@ -20,8 +31,7 @@ whileComponentNotDestroyed
   styleUrls: ['./clock.component.scss']
 })
 @ComponentDestroyObserver
-export class ClockComponent implements OnInit, OnDestroy {
-
+export class ClockComponent implements OnInit, OnDestroy, OnChanges {
   @Input() options: DatepickerOptions = {};
   @Output() change = new EventEmitter<moment.Moment>();
   @ViewChildren(ScrollableDirective) scrollable = new QueryList<ScrollableDirective>();
@@ -43,6 +53,12 @@ export class ClockComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options']) {
+      this.timeDisplay.clock12 = !!this.options.clock12;
+    }
+  }
 
   public getValue() {
     return this.value;

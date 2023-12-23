@@ -23,6 +23,7 @@ export interface DatepickerOptions {
   format?: string;
   date?: boolean;
   time?: boolean;
+  clock12?: boolean;
   static?: boolean;
   margin?: number;
 }
@@ -31,6 +32,7 @@ export const DefaultDatepickerOptions: DatepickerOptions = {
   theme: 'default',
   date: true,
   time: true,
+  clock12: false,
   static: false,
   margin: 0
 };
@@ -115,11 +117,15 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   get currentOptions() {
     const options = defaults(this.options, DefaultDatepickerOptions);
     if (!options.format) {
-      if (options.date && options.time) {
+      if (options.date && options.time && options.clock12) {
+        options.format = 'DD.MM.YYYY hh:mm:ss A';
+      } else if (options.date && options.time) {
         options.format = 'DD.MM.YYYY HH:mm:ss';
-      } else if (options.date) {
+      } else if (options.date && !options.time) {
         options.format = 'DD.MM.YYYY';
-      } else if (options.time) {
+      } else if (!options.date && options.time && options.clock12) {
+        options.format = 'hh:mm:ss A';
+      } else if (!options.date && options.time && !options.clock12) {
         options.format = 'HH:mm:ss';
       } else {
         options.format = '';
