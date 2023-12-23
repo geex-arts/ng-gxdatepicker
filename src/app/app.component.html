@@ -46,7 +46,7 @@
 <div>
   <input
     type="text"
-    placeholder="Date time..."
+    placeholder="Time AM/PM..."
     #dp_4 cdkOverlayOrigin
     #dp_4_trigger="cdkOverlayOrigin"
     (change)="onChanged()"
@@ -54,6 +54,21 @@
   <gxd-datepicker
     [input]="dp_4"
     [origin]="dp_4_trigger"
+    [options]="{ date: false, time: true, clock12: true, margin: 4 }"
+  ></gxd-datepicker>
+</div>
+
+<div>
+  <input
+    type="text"
+    placeholder="Date time..."
+    #dp_5 cdkOverlayOrigin
+    #dp_5_trigger="cdkOverlayOrigin"
+    (change)="onChanged()"
+  >
+  <gxd-datepicker
+    [input]="dp_5"
+    [origin]="dp_5_trigger"
     [options]="{ theme: 'custom', margin: 4 }"
   ></gxd-datepicker>
 </div>
@@ -65,12 +80,12 @@
       formControlName="staticDatetime"
       placeholder="Static date..."
       (change)="onChanged()"
-      #dp_5
+      #dp_6
     >
   <div>
     <gxd-datepicker
       [options]="{ date: true, time: false, static: true }"
-      [input]="dp_5"
+      [input]="dp_6"
       [dateRanges]="dateRanges">
     </gxd-datepicker>
   </div>
@@ -82,13 +97,13 @@
     type="text"
     formControlName="datetime"
     placeholder="Date time form..."
-    #dp_6 cdkOverlayOrigin
-    #dp_6_trigger="cdkOverlayOrigin"
+    #dp_7 cdkOverlayOrigin
+    #dp_7_trigger="cdkOverlayOrigin"
     (change)="onChanged()"
   >
   <gxd-datepicker
-    [input]="dp_6"
-    [origin]="dp_6_trigger"
+    [input]="dp_7"
+    [origin]="dp_7_trigger"
     [options]="{ margin: 4 }"
   ></gxd-datepicker>
 </div>
