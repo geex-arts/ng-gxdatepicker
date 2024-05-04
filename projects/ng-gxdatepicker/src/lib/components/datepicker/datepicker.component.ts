@@ -51,6 +51,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   @Input() options: DatepickerOptions = {};
   @Input() dateRanges: DateRange[];
   @Input() defaultDate: string;
+  @Input() defaultTime: string;
   @ViewChild('root') root: ElementRef;
   @ViewChild(CalendarComponent) calendar: CalendarComponent;
   @ViewChild(ClockComponent) clock: ClockComponent;
