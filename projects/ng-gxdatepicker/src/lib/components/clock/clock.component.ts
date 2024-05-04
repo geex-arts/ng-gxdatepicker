@@ -33,17 +33,24 @@ whileComponentNotDestroyed
 @ComponentDestroyObserver
 export class ClockComponent implements OnInit, OnDestroy, OnChanges {
   @Input() options: DatepickerOptions = {};
+  @Input() defaultTime: string;
   @Output() change = new EventEmitter<moment.Moment>();
   @ViewChildren(ScrollableDirective) scrollable = new QueryList<ScrollableDirective>();
   @ViewChildren('scrollable_inner') scrollableInner = new QueryList<ElementRef>();
 
   value: moment.Moment;
-  timeDisplay = new TimeDisplay(moment().set({ minute: 0, second: 0, millisecond: 0 }));
+  timeDisplay: TimeDisplay;
   updateSelection = new Subject<number>();
 
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    const defaultTime = this.defaultTime
+      ? moment(this.defaultTime, this.options.format)
+      : moment().set({ minute: 0, second: 0, millisecond: 0 });
+    this.timeDisplay = new TimeDisplay(defaultTime);
+    this.timeDisplay.clock12 = !!this.options.clock12;
+
     this.updateSelection
       .pipe(
         debounceTime(160),
@@ -55,7 +62,7 @@ export class ClockComponent implements OnInit, OnDestroy, OnChanges {
   ngOnDestroy(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['options']) {
+    if (changes['options'] && this.timeDisplay) {
       this.timeDisplay.clock12 = !!this.options.clock12;
     }
   }

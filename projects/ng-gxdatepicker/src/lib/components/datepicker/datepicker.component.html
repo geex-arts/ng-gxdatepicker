@@ -12,10 +12,15 @@
         <gxd-calendar
           [options]="currentOptions"
           [dateRanges]="dateRanges"
+          [defaultDate]="defaultDate"
           (change)="onDateChange()"></gxd-calendar>
       </div>
       <div *ngIf="currentOptions.time" class="datepicker__item">
-        <gxd-clock [options]="currentOptions" (change)="onTimeChange()"></gxd-clock>
+        <gxd-clock
+          [options]="currentOptions"
+          [defaultTime]="defaultTime"
+          (change)="onTimeChange()"
+        ></gxd-clock>
       </div>
     </div>
   </div>
