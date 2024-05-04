@@ -20,14 +20,20 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   @Input() options: DatepickerOptions = {};
   @Input() dateRanges: DateRange[];
+  @Input() defaultDate: string;
   @Output() change = new EventEmitter<moment.Moment>();
 
   value: moment.Moment;
-  monthDisplay = new MonthDisplay(moment());
+  monthDisplay: MonthDisplay;
 
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
+    const defaultDate = this.defaultDate
+      ? moment(this.defaultDate, this.options.format)
+      : moment();
+    this.monthDisplay = new MonthDisplay(defaultDate);
+
     if (this.dateRanges) {
       this.fillEnabledDays();
     }

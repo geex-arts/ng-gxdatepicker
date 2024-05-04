@@ -50,6 +50,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   @Input() origin: CdkOverlayOrigin;
   @Input() options: DatepickerOptions = {};
   @Input() dateRanges: DateRange[];
+  @Input() defaultDate: string;
   @ViewChild('root') root: ElementRef;
   @ViewChild(CalendarComponent) calendar: CalendarComponent;
   @ViewChild(ClockComponent) clock: ClockComponent;
