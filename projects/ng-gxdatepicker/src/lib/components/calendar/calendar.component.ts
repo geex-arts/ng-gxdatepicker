@@ -29,9 +29,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    const defaultDate = this.defaultDate
-      ? moment(this.defaultDate, this.options.format)
-      : moment();
+    const defaultDateInput = this.defaultDate ? moment(this.defaultDate, this.options.format) : undefined;
+    const defaultDate = defaultDateInput && defaultDateInput.isValid() ? defaultDateInput : moment();
     this.monthDisplay = new MonthDisplay(defaultDate);
 
     if (this.dateRanges) {

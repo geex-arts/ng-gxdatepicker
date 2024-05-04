@@ -45,9 +45,9 @@ export class ClockComponent implements OnInit, OnDestroy, OnChanges {
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
-    const defaultTime = this.defaultTime
-      ? moment(this.defaultTime, this.options.format)
-      : moment().set({ minute: 0, second: 0, millisecond: 0 });
+    const defaultTimeInput = this.defaultTime ? moment(this.defaultTime, this.options.format) : undefined;
+    const defaultTime = defaultTimeInput && defaultTimeInput.isValid() ? defaultTimeInput : moment();
+
     this.timeDisplay = new TimeDisplay(defaultTime);
     this.timeDisplay.clock12 = !!this.options.clock12;
 
