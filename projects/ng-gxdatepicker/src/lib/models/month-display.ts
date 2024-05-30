@@ -82,7 +82,7 @@ export class MonthDisplay {
     this.updateWeeks();
   }
 
-  private updateWeeks() {
+  updateWeeks() {
     const firstDay = this.displayFirstDay;
     const weeks = Math.ceil(this.displayLastDay.diff(this.displayFirstDay, 'weeks', true));
 

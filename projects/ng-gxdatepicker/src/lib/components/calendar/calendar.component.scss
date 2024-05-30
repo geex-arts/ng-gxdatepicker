@@ -1,5 +1,17 @@
 
 .datepicker-calendar_theme_default {
+  .datepicker-calendars {
+  }
+
+  .datepicker-calendars__item {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .datepicker-calendars__item + .datepicker-calendars__item {
+    margin-left: 20px;
+  }
+
   .datepicker-calendar {
     min-width: 200px;
   }

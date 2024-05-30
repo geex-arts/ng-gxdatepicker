@@ -1,69 +1,71 @@
-<div class="datepicker-calendar"
-     [ngClass]="['datepicker-calendar_theme_' + options.theme]">
-  <div class="datepicker-calendar__header">
-    <div class="datepicker-calendar__header-controls datepicker-calendar__header-controls_left">
-      <a href="javascript:void(0)"
-         class="datepicker-calendar__header-control"
-         (tap)="goToPrevYear()"
-         tabindex="-1">
-        &laquo;
-      </a>
-      <a href="javascript:void(0)"
-         class="datepicker-calendar__header-control"
-         (tap)="goToPrevMonth()"
-         tabindex="-1">
-        &#8249;
-      </a>
-    </div>
-
-    <span class="datepicker-calendar__header-title">
-      <span class="datepicker-calendar__header-month">{{monthDisplay.date.format('MMMM')}}</span>
-      <span class="datepicker-calendar__header-year">{{monthDisplay.date.format('YYYY')}}</span>
-    </span>
-
-    <div class="datepicker-calendar__header-controls datepicker-calendar__header-controls_right">
-      <a href="javascript:void(0)"
-         class="datepicker-calendar__header-control"
-         (tap)="goToNextMonth()"
-         tabindex="-1">
-        &#8250;
-      </a>
-      <a href="javascript:void(0)"
-         class="datepicker-calendar__header-control"
-         (tap)="goToNextYear()"
-         tabindex="-1">
-        &raquo;
-      </a>
-    </div>
-  </div>
-  <table class="datepicker-calendar__table">
-    <thead>
-    <tr class="datepicker-calendar__table-header">
-      <th *ngFor="let day of monthDisplay.weekDays"
-          class="datepicker-calendar__table-heading"
-          [class.datepicker-calendar__table-heading_weekend]="day.weekend">
-        {{day.date.format('dd')}}
-      </th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let week of monthDisplay.weeks" class="datepicker-calendar__table-row">
-      <td *ngFor="let day of week"
-          class="datepicker-calendar__table-cell"
-          [class.datepicker-calendar__table-cell_another-month]="!day.currentMonth"
-          [class.datepicker-calendar__table-cell_today]="day.today"
-          [class.datepicker-calendar__table-cell_selected]="day.selected"
-          [class.datepicker-calendar__table-cell_weekend]="day.weekend"
-          [class.datepicker-calendar__table-cell_enabled]="day.enabled === true"
-          [class.datepicker-calendar__table-cell_disabled]="day.enabled === false">
+<div class="datepicker-calendars" [ngClass]="['datepicker-calendar_theme_' + options.theme]">
+  <div *ngFor="let monthDisplay of monthDisplays; let first = first; let last = last"
+       class="datepicker-calendar datepicker-calendars__item">
+    <div class="datepicker-calendar__header">
+      <div *ngIf="first" class="datepicker-calendar__header-controls datepicker-calendar__header-controls_left">
         <a href="javascript:void(0)"
-           class="datepicker-calendar__table-cell-link"
-           (tap)="select(day.date)"
+           class="datepicker-calendar__header-control"
+           (tap)="goToPrevYear()"
            tabindex="-1">
-          {{day.date.format('D')}}
+          &laquo;
         </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+        <a href="javascript:void(0)"
+           class="datepicker-calendar__header-control"
+           (tap)="goToPrevMonth()"
+           tabindex="-1">
+          &#8249;
+        </a>
+      </div>
+
+      <span class="datepicker-calendar__header-title">
+        <span class="datepicker-calendar__header-month">{{monthDisplay.date.format('MMMM')}}</span>
+        <span class="datepicker-calendar__header-year">{{monthDisplay.date.format('YYYY')}}</span>
+      </span>
+
+      <div *ngIf="last" class="datepicker-calendar__header-controls datepicker-calendar__header-controls_right">
+        <a href="javascript:void(0)"
+           class="datepicker-calendar__header-control"
+           (tap)="goToNextMonth()"
+           tabindex="-1">
+          &#8250;
+        </a>
+        <a href="javascript:void(0)"
+           class="datepicker-calendar__header-control"
+           (tap)="goToNextYear()"
+           tabindex="-1">
+          &raquo;
+        </a>
+      </div>
+    </div>
+    <table class="datepicker-calendar__table">
+      <thead>
+      <tr class="datepicker-calendar__table-header">
+        <th *ngFor="let day of monthDisplay.weekDays"
+            class="datepicker-calendar__table-heading"
+            [class.datepicker-calendar__table-heading_weekend]="day.weekend">
+          {{day.date.format('dd')}}
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let week of monthDisplay.weeks" class="datepicker-calendar__table-row">
+        <td *ngFor="let day of week"
+            class="datepicker-calendar__table-cell"
+            [class.datepicker-calendar__table-cell_another-month]="!day.currentMonth"
+            [class.datepicker-calendar__table-cell_today]="day.today"
+            [class.datepicker-calendar__table-cell_selected]="day.selected"
+            [class.datepicker-calendar__table-cell_weekend]="day.weekend"
+            [class.datepicker-calendar__table-cell_enabled]="day.enabled === true"
+            [class.datepicker-calendar__table-cell_disabled]="day.enabled === false">
+          <a href="javascript:void(0)"
+             class="datepicker-calendar__table-cell-link"
+             (tap)="select(day.date)"
+             tabindex="-1">
+            {{day.date.format('D')}}
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

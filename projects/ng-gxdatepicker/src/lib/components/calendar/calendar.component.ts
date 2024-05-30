@@ -3,6 +3,7 @@ import {
   Output
 } from '@angular/core';
 import moment from 'moment';
+import range from 'lodash/range';
 
 import { MonthDisplay } from '../../models/month-display';
 import { ComponentDestroyObserver } from '../../decorators/component-destroy-observer/component-destroy-observer';
@@ -24,14 +25,18 @@ export class CalendarComponent implements OnInit, OnDestroy {
   @Output() change = new EventEmitter<moment.Moment>();
 
   value: moment.Moment;
-  monthDisplay: MonthDisplay;
+  monthDisplays: MonthDisplay[] = [];
 
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     const defaultDateInput = this.defaultDate ? moment(this.defaultDate, this.options.format) : undefined;
     const defaultDate = defaultDateInput && defaultDateInput.isValid() ? defaultDateInput : moment();
-    this.monthDisplay = new MonthDisplay(defaultDate);
+
+    this.monthDisplays = range(this.options.months).map(i => {
+      const date = defaultDate.clone().add(i, 'months');
+      return new MonthDisplay(date);
+    });
 
     if (this.dateRanges) {
       this.fillEnabledDays();
@@ -39,11 +44,13 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   fillEnabledDays() {
-    this.monthDisplay.weeks.forEach(week => {
-      week.forEach(day => {
-        if (this.isDateEnabled(day.date) !== null) {
-          day.enabled = this.isDateEnabled(day.date);
-        }
+    this.monthDisplays.forEach(monthDisplay => {
+      monthDisplay.weeks.forEach(week => {
+        week.forEach(day => {
+          if (this.isDateEnabled(day.date) !== null) {
+            day.enabled = this.isDateEnabled(day.date);
+          }
+        });
       });
     });
   }
@@ -56,8 +63,20 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   select(day: moment.Moment) {
     this.value = day;
-    this.monthDisplay.selectedDate = this.value.clone();
-    this.monthDisplay.date = this.value.clone();
+
+    const monthDisplaysStart = this.monthDisplays[0].date.startOf('month');
+    const monthDisplaysEnd = this.monthDisplays[this.monthDisplays.length - 1].date.endOf('month');
+
+    this.monthDisplays.forEach((monthDisplay, i) => {
+      monthDisplay.selectedDate = this.value.clone();
+
+      if (!this.value.isBetween(monthDisplaysStart, monthDisplaysEnd, 'day', '[]')) {
+        monthDisplay.date = this.value.clone().add(i, 'months');
+      } else {
+        monthDisplay.updateWeeks();
+      }
+    });
+
     this.cd.detectChanges();
     this.change.emit(this.value);
 
@@ -72,15 +91,25 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.value = result.isValid() ? result : undefined;
 
     if (this.value) {
-      this.monthDisplay.selectedDate = this.value.clone();
-      this.monthDisplay.date = this.value.clone();
+      const monthDisplaysStart = this.monthDisplays[0].date.startOf('month');
+      const monthDisplaysEnd = this.monthDisplays[this.monthDisplays.length - 1].date.endOf('month');
+
+      this.monthDisplays.forEach((monthDisplay, i) => {
+        monthDisplay.selectedDate = this.value.clone();
+
+        if (!this.value.isBetween(monthDisplaysStart, monthDisplaysEnd, 'day', '[]')) {
+          monthDisplay.date = this.value.clone().add(i, 'months');
+        } else {
+          monthDisplay.updateWeeks();
+        }
+      });
     }
 
     this.cd.detectChanges();
   }
 
   isDateEnabled(date: any) {
-    const range = this.dateRanges.find(item => {
+    const dateRange = this.dateRanges.find(item => {
       const format = 'YYYY-MM-DD';
       const fromDate = moment(item.fromDate).format(format);
       const toDate = moment(item.toDate).format(format);
@@ -89,22 +118,26 @@ export class CalendarComponent implements OnInit, OnDestroy {
       return formattedDate >= fromDate && formattedDate <= toDate;
     });
 
-    if (range) {
-      return range.enable;
+    if (dateRange) {
+      return dateRange.enable;
     } else {
       return null;
     }
   }
 
   goToPrevMonth() {
-    this.monthDisplay.prevMonth();
+    this.monthDisplays.forEach(monthDisplay => {
+      monthDisplay.prevMonth();
+    });
 
     if (this.dateRanges) {
       this.fillEnabledDays();
     }
   }
   goToNextMonth() {
-    this.monthDisplay.nextMonth();
+    this.monthDisplays.forEach(monthDisplay => {
+      monthDisplay.nextMonth();
+    });
 
     if (this.dateRanges) {
       this.fillEnabledDays();
@@ -112,14 +145,18 @@ export class CalendarComponent implements OnInit, OnDestroy {
   }
 
   goToPrevYear() {
-    this.monthDisplay.prevYear();
+    this.monthDisplays.forEach(monthDisplay => {
+      monthDisplay.prevYear();
+    });
 
     if (this.dateRanges) {
       this.fillEnabledDays();
     }
   }
   goToNextYear() {
-    this.monthDisplay.nextYear();
+    this.monthDisplays.forEach(monthDisplay => {
+      monthDisplay.nextYear();
+    });
 
     if (this.dateRanges) {
       this.fillEnabledDays();

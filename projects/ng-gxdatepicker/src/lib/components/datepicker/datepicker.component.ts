@@ -22,6 +22,7 @@ export interface DatepickerOptions {
   theme?: string;
   format?: string;
   date?: boolean;
+  months?: number;
   time?: boolean;
   clock12?: boolean;
   static?: boolean;
@@ -31,6 +32,7 @@ export interface DatepickerOptions {
 export const DefaultDatepickerOptions: DatepickerOptions = {
   theme: 'default',
   date: true,
+  months: 1,
   time: true,
   clock12: false,
   static: false,
