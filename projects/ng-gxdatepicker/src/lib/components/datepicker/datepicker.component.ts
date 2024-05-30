@@ -49,6 +49,7 @@ export const DefaultDatepickerOptions: DatepickerOptions = {
 export class DatepickerComponent implements OnInit, OnDestroy {
 
   @Input() input: any;
+  @Input() rangeInput: any;
   @Input() origin: CdkOverlayOrigin;
   @Input() options: DatepickerOptions = {};
   @Input() dateRanges: DateRange[];
@@ -154,7 +155,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
   updateValue() {
     if (this.currentOptions.date && this.calendar) {
-      this.calendar.parseValue(this.input.value);
+      this.calendar.parseValue(this.input.value, this.rangeInput ? this.rangeInput.value : undefined);
     }
 
     if (this.currentOptions.time && this.clock) {

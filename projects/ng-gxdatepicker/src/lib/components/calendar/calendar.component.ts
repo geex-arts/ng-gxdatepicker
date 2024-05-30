@@ -85,10 +85,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
     }
   }
 
-  parseValue(value: string) {
-    const result = moment(value, this.options.format);
+  parseValue(value: string, rangeValue?: string) {
+    const valueDate = moment(value, this.options.format);
+    const rangeDate = rangeValue !== undefined ? moment(rangeValue, this.options.format) : undefined;
 
-    this.value = result.isValid() ? result : undefined;
+    this.value = valueDate.isValid() ? valueDate : undefined;
 
     if (this.value) {
       const monthDisplaysStart = this.monthDisplays[0].date.startOf('month');
@@ -96,6 +97,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
       this.monthDisplays.forEach((monthDisplay, i) => {
         monthDisplay.selectedDate = this.value.clone();
+        monthDisplay.rangeDate = rangeDate && rangeDate.isValid() ? rangeDate.clone() : undefined;
 
         if (!this.value.isBetween(monthDisplaysStart, monthDisplaysEnd, 'day', '[]')) {
           monthDisplay.date = this.value.clone().add(i, 'months');
