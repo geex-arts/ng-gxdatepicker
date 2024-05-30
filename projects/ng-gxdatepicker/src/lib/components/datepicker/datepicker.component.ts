@@ -59,6 +59,8 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   @ViewChild(CalendarComponent) calendar: CalendarComponent;
   @ViewChild(ClockComponent) clock: ClockComponent;
   @Output() change = new EventEmitter<moment.Moment>();
+  @Output() dateChange = new EventEmitter<moment.Moment>();
+  @Output() timeChange = new EventEmitter<moment.Moment>();
 
   opened = false;
 
@@ -215,6 +217,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     event.initEvent('input', true, true);
     this.input.dispatchEvent(event);
     this.change.emit(value);
+    this.dateChange.emit(value);
   }
 
   onTimeChange() {
@@ -226,5 +229,6 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     event.initEvent('input', true, true);
     this.input.dispatchEvent(event);
     this.change.emit(value);
+    this.timeChange.emit(value);
   }
 }
