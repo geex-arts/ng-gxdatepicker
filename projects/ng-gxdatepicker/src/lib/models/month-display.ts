@@ -6,6 +6,8 @@ export interface WeeksDay {
   today: boolean;
   currentMonth: boolean;
   weekend: boolean;
+  rangeBound: boolean;
+  rangeInside: boolean;
   selected: boolean;
   enabled: boolean;
 }
@@ -18,6 +20,7 @@ export interface DayOfWeek {
 export class MonthDisplay {
 
   selectedDate: moment.Moment;
+  rangeDate: moment.Moment;
   weekDays: DayOfWeek[] = [];
   weeks: WeeksDay[][] = [];
 
@@ -82,7 +85,7 @@ export class MonthDisplay {
     this.updateWeeks();
   }
 
-  private updateWeeks() {
+  updateWeeks() {
     const firstDay = this.displayFirstDay;
     const weeks = Math.ceil(this.displayLastDay.diff(this.displayFirstDay, 'weeks', true));
 
@@ -95,19 +98,30 @@ export class MonthDisplay {
       };
     });
 
+    const rangeDates = this.selectedDate && this.rangeDate
+      ? [this.selectedDate, this.rangeDate].sort((lhs, rhs) => lhs.diff(rhs))
+      : undefined;
+
     this.weeks = range(0, weeks).map(week => {
       return range(0, 7).map(day => {
         const date = firstDay.clone().add(week, 'weeks').add(day, 'days');
+        const isSelectedDate = this.selectedDate
+          && date.isSame(this.selectedDate, 'day')
+          && date.isSame(this.selectedDate, 'month')
+          && date.isSame(this.selectedDate, 'year');
+        const isRangeDate = this.rangeDate
+          && date.isSame(this.rangeDate, 'day')
+          && date.isSame(this.rangeDate, 'month')
+          && date.isSame(this.rangeDate, 'year');
 
         return {
           date: date,
           today: date.isSame(this.now, 'day') && date.isSame(this.now, 'month') && date.isSame(this.now, 'year'),
           currentMonth: date.isSame(this.date, 'month') && date.isSame(this.date, 'year'),
           weekend: [6, 0].indexOf(date.day()) !== -1,
-          selected: this.selectedDate
-            && date.isSame(this.selectedDate, 'day')
-            && date.isSame(this.selectedDate, 'month')
-            && date.isSame(this.selectedDate, 'year')
+          rangeBound: isRangeDate || (this.rangeDate && isSelectedDate),
+          rangeInside: rangeDates && date.isBetween(rangeDates[0], rangeDates[1], 'date', '()'),
+          selected: isSelectedDate
         };
       });
     });

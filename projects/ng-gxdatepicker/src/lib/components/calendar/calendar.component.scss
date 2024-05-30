@@ -1,5 +1,17 @@
 
 .datepicker-calendar_theme_default {
+  .datepicker-calendars {
+  }
+
+  .datepicker-calendars__item {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .datepicker-calendars__item + .datepicker-calendars__item {
+    margin-left: 20px;
+  }
+
   .datepicker-calendar {
     min-width: 200px;
   }
@@ -114,6 +126,15 @@
 
     &_weekend {
       color: #ff505c;
+    }
+
+    &_range-inside {
+      background: #f1f1f1;
+    }
+
+    &_range-bound, &_range-bound:hover {
+      background: #6da5ff;
+      color: #fff;
     }
 
     &_selected, &_selected:hover {

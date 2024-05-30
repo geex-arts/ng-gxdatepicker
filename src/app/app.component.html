@@ -16,15 +16,31 @@
 <div>
   <input
     type="text"
-    placeholder="Date..."
+    placeholder="Date from..."
     #dp_2 cdkOverlayOrigin
     #dp_2_trigger="cdkOverlayOrigin"
     (change)="onChanged()"
   >
+
+  <input
+    type="text"
+    placeholder="Date to..."
+    #dp_2_to
+    (change)="onChanged()"
+  >
+
   <gxd-datepicker
     [input]="dp_2"
+    [rangeInput]="dp_2_to"
     [origin]="dp_2_trigger"
-    [options]="{ date: true, time: false, margin: 4 }"
+    [options]="{ date: true, months: 2, time: false, margin: 4 }"
+  ></gxd-datepicker>
+
+  <gxd-datepicker
+    [input]="dp_2_to"
+    [rangeInput]="dp_2"
+    [origin]="dp_2_trigger"
+    [options]="{ date: true, months: 2, time: false, margin: 4 }"
   ></gxd-datepicker>
 </div>
 

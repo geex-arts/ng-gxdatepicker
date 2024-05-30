@@ -22,6 +22,7 @@ export interface DatepickerOptions {
   theme?: string;
   format?: string;
   date?: boolean;
+  months?: number;
   time?: boolean;
   clock12?: boolean;
   static?: boolean;
@@ -31,6 +32,7 @@ export interface DatepickerOptions {
 export const DefaultDatepickerOptions: DatepickerOptions = {
   theme: 'default',
   date: true,
+  months: 1,
   time: true,
   clock12: false,
   static: false,
@@ -47,6 +49,7 @@ export const DefaultDatepickerOptions: DatepickerOptions = {
 export class DatepickerComponent implements OnInit, OnDestroy {
 
   @Input() input: any;
+  @Input() rangeInput: any;
   @Input() origin: CdkOverlayOrigin;
   @Input() options: DatepickerOptions = {};
   @Input() dateRanges: DateRange[];
@@ -56,6 +59,8 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   @ViewChild(CalendarComponent) calendar: CalendarComponent;
   @ViewChild(ClockComponent) clock: ClockComponent;
   @Output() change = new EventEmitter<moment.Moment>();
+  @Output() dateChange = new EventEmitter<moment.Moment>();
+  @Output() timeChange = new EventEmitter<moment.Moment>();
 
   opened = false;
 
@@ -152,7 +157,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
   updateValue() {
     if (this.currentOptions.date && this.calendar) {
-      this.calendar.parseValue(this.input.value);
+      this.calendar.parseValue(this.input.value, this.rangeInput ? this.rangeInput.value : undefined);
     }
 
     if (this.currentOptions.time && this.clock) {
@@ -212,6 +217,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     event.initEvent('input', true, true);
     this.input.dispatchEvent(event);
     this.change.emit(value);
+    this.dateChange.emit(value);
   }
 
   onTimeChange() {
@@ -223,5 +229,6 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     event.initEvent('input', true, true);
     this.input.dispatchEvent(event);
     this.change.emit(value);
+    this.timeChange.emit(value);
   }
 }
