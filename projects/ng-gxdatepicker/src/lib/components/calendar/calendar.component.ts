@@ -68,9 +68,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
     const monthDisplaysEnd = this.monthDisplays[this.monthDisplays.length - 1].date.endOf('month');
 
     this.monthDisplays.forEach((monthDisplay, i) => {
-      monthDisplay.selectedDate = this.value.clone();
+      monthDisplay.selectedDate = this.value ? this.value.clone() : undefined;
 
-      if (!this.value.isBetween(monthDisplaysStart, monthDisplaysEnd, 'day', '[]')) {
+      if (this.value && !this.value.isBetween(monthDisplaysStart, monthDisplaysEnd, 'day', '[]')) {
         monthDisplay.date = this.value.clone().add(i, 'months');
       } else {
         monthDisplay.updateWeeks();
@@ -91,21 +91,19 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
     this.value = valueDate.isValid() ? valueDate : undefined;
 
-    if (this.value) {
-      const monthDisplaysStart = this.monthDisplays[0].date.startOf('month');
-      const monthDisplaysEnd = this.monthDisplays[this.monthDisplays.length - 1].date.endOf('month');
+    const monthDisplaysStart = this.monthDisplays[0].date.startOf('month');
+    const monthDisplaysEnd = this.monthDisplays[this.monthDisplays.length - 1].date.endOf('month');
 
-      this.monthDisplays.forEach((monthDisplay, i) => {
-        monthDisplay.selectedDate = this.value.clone();
-        monthDisplay.rangeDate = rangeDate && rangeDate.isValid() ? rangeDate.clone() : undefined;
+    this.monthDisplays.forEach((monthDisplay, i) => {
+      monthDisplay.selectedDate = this.value ? this.value.clone() : undefined;
+      monthDisplay.rangeDate = rangeDate && rangeDate.isValid() ? rangeDate.clone() : undefined;
 
-        if (!this.value.isBetween(monthDisplaysStart, monthDisplaysEnd, 'day', '[]')) {
-          monthDisplay.date = this.value.clone().add(i, 'months');
-        } else {
-          monthDisplay.updateWeeks();
-        }
-      });
-    }
+      if (this.value && !this.value.isBetween(monthDisplaysStart, monthDisplaysEnd, 'day', '[]')) {
+        monthDisplay.date = this.value.clone().add(i, 'months');
+      } else {
+        monthDisplay.updateWeeks();
+      }
+    });
 
     this.cd.detectChanges();
   }
