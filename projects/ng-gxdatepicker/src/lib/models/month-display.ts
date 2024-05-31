@@ -7,6 +7,8 @@ export interface WeeksDay {
   currentMonth: boolean;
   weekend: boolean;
   rangeBound: boolean;
+  rangeBoundStart: boolean;
+  rangeBoundEnd: boolean;
   rangeInside: boolean;
   selected: boolean;
   enabled: boolean;
@@ -105,25 +107,32 @@ export class MonthDisplay {
     this.weeks = range(0, weeks).map(week => {
       return range(0, 7).map(day => {
         const date = firstDay.clone().add(week, 'weeks').add(day, 'days');
-        const isSelectedDate = this.selectedDate
-          && date.isSame(this.selectedDate, 'day')
-          && date.isSame(this.selectedDate, 'month')
-          && date.isSame(this.selectedDate, 'year');
-        const isRangeDate = this.rangeDate
-          && date.isSame(this.rangeDate, 'day')
-          && date.isSame(this.rangeDate, 'month')
-          && date.isSame(this.rangeDate, 'year');
+        const isSelectedDate = this.selectedDate && this.isSameDay(date, this.selectedDate);
+        const isRangeDate = this.rangeDate && this.isSameDay(date, this.rangeDate);
 
         return {
           date: date,
-          today: date.isSame(this.now, 'day') && date.isSame(this.now, 'month') && date.isSame(this.now, 'year'),
-          currentMonth: date.isSame(this.date, 'month') && date.isSame(this.date, 'year'),
+          today: this.isSameDay(date, this.now),
+          currentMonth: this.isSameMonth(date, this.date),
           weekend: [6, 0].indexOf(date.day()) !== -1,
           rangeBound: isRangeDate || (this.rangeDate && isSelectedDate),
+          rangeBoundStart: rangeDates && this.isSameDay(date, rangeDates[0]),
+          rangeBoundEnd: rangeDates && this.isSameDay(date, rangeDates[1]),
           rangeInside: rangeDates && date.isBetween(rangeDates[0], rangeDates[1], 'date', '()'),
           selected: isSelectedDate
         };
       });
     });
+  }
+
+  isSameDay(lhs: moment.Moment, rhs: moment.Moment): boolean {
+    return lhs.isSame(rhs, 'day')
+      && lhs.isSame(rhs, 'month')
+      && lhs.isSame(rhs, 'year');
+  }
+
+  isSameMonth(lhs: moment.Moment, rhs: moment.Moment): boolean {
+    return lhs.isSame(rhs, 'month')
+      && lhs.isSame(rhs, 'year');
   }
 }
