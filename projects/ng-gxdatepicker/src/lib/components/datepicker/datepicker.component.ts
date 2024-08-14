@@ -1,6 +1,6 @@
 import {
-  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit,
-  Output, PLATFORM_ID, ViewChild
+  ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, OnChanges, OnDestroy, OnInit,
+  Output, PLATFORM_ID, SimpleChanges, ViewChild
 } from '@angular/core';
 import { isPlatformServer } from '@angular/common';
 import { CdkOverlayOrigin } from '@angular/cdk/overlay';
@@ -27,6 +27,9 @@ export interface DatepickerOptions {
   clock12?: boolean;
   static?: boolean;
   margin?: number;
+  datepickerClasses?: string[];
+  calendarClasses?: string[];
+  clockClasses?: string[];
 }
 
 export const DefaultDatepickerOptions: DatepickerOptions = {
@@ -36,7 +39,10 @@ export const DefaultDatepickerOptions: DatepickerOptions = {
   time: true,
   clock12: false,
   static: false,
-  margin: 0
+  margin: 0,
+  datepickerClasses: [],
+  calendarClasses: [],
+  clockClasses: []
 };
 
 @Component({
@@ -46,8 +52,7 @@ export const DefaultDatepickerOptions: DatepickerOptions = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 @ComponentDestroyObserver
-export class DatepickerComponent implements OnInit, OnDestroy {
-
+export class DatepickerComponent implements OnInit, OnDestroy, OnChanges {
   @Input() input: any;
   @Input() rangeInput: any;
   @Input() origin: CdkOverlayOrigin;
@@ -63,6 +68,9 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   @Output() timeChange = new EventEmitter<moment.Moment>();
 
   opened = false;
+  datepickerClasses: string[] = [];
+  calendarClasses: string[] = [];
+  clockClasses: string[] = [];
 
   constructor(private cd: ChangeDetectorRef,
               @Inject(PLATFORM_ID) private platformId: Object,
@@ -116,6 +124,23 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options']) {
+      this.datepickerClasses = [
+        'datepicker_theme_' + this.currentOptions.theme,
+        ...this.currentOptions.datepickerClasses
+      ];
+      this.calendarClasses = [
+        'datepicker-calendar_theme_' + this.currentOptions.theme,
+        ...this.currentOptions.calendarClasses
+      ];
+      this.clockClasses = [
+        'datepicker-clock_theme_' + this.currentOptions.theme,
+        ...this.currentOptions.clockClasses
+      ];
+    }
+  }
 
   isPlatformServer() {
     return isPlatformServer(this.platformId);

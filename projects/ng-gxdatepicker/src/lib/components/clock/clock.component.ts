@@ -34,6 +34,7 @@ whileComponentNotDestroyed
 export class ClockComponent implements OnInit, OnDestroy, OnChanges {
   @Input() options: DatepickerOptions = {};
   @Input() defaultTime: string;
+  @Input() classes: string[] = [];
   @Output() change = new EventEmitter<moment.Moment>();
   @ViewChildren(ScrollableDirective) scrollable = new QueryList<ScrollableDirective>();
   @ViewChildren('scrollable_inner') scrollableInner = new QueryList<ElementRef>();

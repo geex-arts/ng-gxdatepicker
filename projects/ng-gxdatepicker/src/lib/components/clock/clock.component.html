@@ -1,5 +1,5 @@
 <div class="datepicker-clock"
-     [ngClass]="['datepicker-clock_theme_' + options.theme]">
+     [ngClass]="classes">
   <div *ngFor="let option of timeDisplay.options; trackBy: trackByFn; let i = index" class="datepicker-clock__item">
     <div class="datepicker-clock__item-title">
       {{option.title}}

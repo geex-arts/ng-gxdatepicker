@@ -120,6 +120,11 @@
   <gxd-datepicker
     [input]="dp_7"
     [origin]="dp_7_trigger"
-    [options]="{ margin: 4 }"
+    [options]="{
+      margin: 4,
+      datepickerClasses: ['datepicker-cls'],
+      calendarClasses: ['calendar-cls'],
+      clockClasses: ['clock-cls']
+    }"
   ></gxd-datepicker>
 </div>
