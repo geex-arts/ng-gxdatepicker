@@ -22,6 +22,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   @Input() options: DatepickerOptions = {};
   @Input() dateRanges: DateRange[];
   @Input() defaultDate: string;
+  @Input() classes: string[] = [];
   @Output() change = new EventEmitter<moment.Moment>();
 
   value: moment.Moment;

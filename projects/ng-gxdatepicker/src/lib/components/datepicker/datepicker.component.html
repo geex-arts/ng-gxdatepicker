@@ -6,19 +6,21 @@
   >
     <div
       class="datepicker"
-      [ngClass]="['datepicker_theme_' + currentOptions.theme]"
+      [ngClass]="datepickerClasses"
     >
       <div *ngIf="currentOptions.date" class="datepicker__item">
         <gxd-calendar
           [options]="currentOptions"
           [dateRanges]="dateRanges"
           [defaultDate]="defaultDate"
+          [classes]="calendarClasses"
           (change)="onDateChange()"></gxd-calendar>
       </div>
       <div *ngIf="currentOptions.time" class="datepicker__item">
         <gxd-clock
           [options]="currentOptions"
           [defaultTime]="defaultTime"
+          [classes]="clockClasses"
           (change)="onTimeChange()"
         ></gxd-clock>
       </div>
