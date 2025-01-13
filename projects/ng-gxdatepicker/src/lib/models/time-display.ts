@@ -25,7 +25,7 @@ export class TimeDisplay {
   seconds: TimeOptionItem[];
   periods: TimeOptionItem[];
 
-  constructor(private _date: moment.Moment, private _clock12 = false) {
+  constructor(private _date: moment.Moment, private _hasSeconds = false, private _clock12 = false) {
     this.updateTime();
   }
 
@@ -35,6 +35,15 @@ export class TimeDisplay {
 
   get date() {
     return this._date;
+  }
+
+  set hasSeconds(value) {
+    this._hasSeconds = value;
+    this.updateTime();
+  }
+
+  get hasSeconds() {
+    return this._hasSeconds;
   }
 
   set clock12(value) {
@@ -115,7 +124,7 @@ export class TimeDisplay {
     this.options = [
       { title: 'Hours', items: this.hours },
       { title: 'Minutes', items: this.minutes },
-      { title: 'Seconds', items: this.seconds },
+      ...(this.hasSeconds ? [{ title: 'Seconds', items: this.seconds }] : []),
       ...(this.clock12 ? [{ title: 'AM/PM', items: this.periods }] : [])
     ];
   }

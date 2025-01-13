@@ -62,6 +62,21 @@
 <div>
   <input
     type="text"
+    placeholder="Time without seconds..."
+    #dp_8 cdkOverlayOrigin
+    #dp_8_trigger="cdkOverlayOrigin"
+    (change)="onChanged()"
+  >
+  <gxd-datepicker
+    [input]="dp_8"
+    [origin]="dp_8_trigger"
+    [options]="{ date: false, time: true, format: 'HH:mm', margin: 4 }"
+  ></gxd-datepicker>
+</div>
+
+<div>
+  <input
+    type="text"
     placeholder="Time AM/PM..."
     #dp_4 cdkOverlayOrigin
     #dp_4_trigger="cdkOverlayOrigin"

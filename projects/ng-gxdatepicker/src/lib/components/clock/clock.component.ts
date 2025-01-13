@@ -50,6 +50,7 @@ export class ClockComponent implements OnInit, OnDestroy, OnChanges {
     const defaultTime = defaultTimeInput && defaultTimeInput.isValid() ? defaultTimeInput : moment();
 
     this.timeDisplay = new TimeDisplay(defaultTime);
+    this.timeDisplay.hasSeconds = this.hasSeconds();
     this.timeDisplay.clock12 = !!this.options.clock12;
 
     this.updateSelection
@@ -64,12 +65,17 @@ export class ClockComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['options'] && this.timeDisplay) {
+      this.timeDisplay.hasSeconds = this.hasSeconds();
       this.timeDisplay.clock12 = !!this.options.clock12;
     }
   }
 
   public getValue() {
     return this.value;
+  }
+
+  hasSeconds(): boolean {
+    return !this.options.format || !!this.options.format.match(/s{1,2}/);
   }
 
   select(value: moment.Moment, scroll = false) {
