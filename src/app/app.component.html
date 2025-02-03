@@ -143,3 +143,18 @@
     }"
   ></gxd-datepicker>
 </div>
+
+<div>
+  <input
+    type="text"
+    placeholder="Localized"
+    #dp_9 cdkOverlayOrigin
+    #dp_9_trigger="cdkOverlayOrigin"
+    (change)="onChanged()"
+  >
+  <gxd-datepicker
+    [input]="dp_9"
+    [origin]="dp_9_trigger"
+    [options]="{ margin: 4, locale: { hours: 'horas', minutes: 'minutos', seconds: 'segundos' } }"
+  ></gxd-datepicker>
+</div>

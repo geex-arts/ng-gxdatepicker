@@ -49,7 +49,7 @@ export class ClockComponent implements OnInit, OnDestroy, OnChanges {
     const defaultTimeInput = this.defaultTime ? moment(this.defaultTime, this.options.format) : undefined;
     const defaultTime = defaultTimeInput && defaultTimeInput.isValid() ? defaultTimeInput : moment();
 
-    this.timeDisplay = new TimeDisplay(defaultTime);
+    this.timeDisplay = new TimeDisplay(this.options, defaultTime);
     this.timeDisplay.hasSeconds = this.hasSeconds();
     this.timeDisplay.clock12 = !!this.options.clock12;
 

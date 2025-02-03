@@ -18,6 +18,12 @@ import { DatepickerService } from '../../services/datepicker.service';
 import { ClockComponent } from '../clock/clock.component';
 import { DateRange } from '../../models/date-range';
 
+export interface DatepickerLocale {
+  hours: string;
+  minutes: string;
+  seconds: string;
+}
+
 export interface DatepickerOptions {
   theme?: string;
   format?: string;
@@ -30,6 +36,7 @@ export interface DatepickerOptions {
   datepickerClasses?: string[];
   calendarClasses?: string[];
   clockClasses?: string[];
+  locale?: DatepickerLocale;
 }
 
 export const DefaultDatepickerOptions: DatepickerOptions = {
