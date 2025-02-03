@@ -1,6 +1,8 @@
 import moment from 'moment';
 import range from 'lodash/range';
 
+import {DatepickerLocale, DatepickerOptions} from '../components/datepicker/datepicker.component';
+
 export interface TimeOptionItem {
   date: moment.Moment;
   now: boolean;
@@ -25,7 +27,12 @@ export class TimeDisplay {
   seconds: TimeOptionItem[];
   periods: TimeOptionItem[];
 
-  constructor(private _date: moment.Moment, private _hasSeconds = false, private _clock12 = false) {
+  constructor(
+    private datepickerOptions: DatepickerOptions,
+    private _date: moment.Moment,
+    private _hasSeconds = false,
+    private _clock12 = false
+  ) {
     this.updateTime();
   }
 
@@ -121,10 +128,12 @@ export class TimeDisplay {
       };
     }) : [];
 
+    const locale: DatepickerLocale = this.datepickerOptions.locale;
+
     this.options = [
-      { title: 'Hours', items: this.hours },
-      { title: 'Minutes', items: this.minutes },
-      ...(this.hasSeconds ? [{ title: 'Seconds', items: this.seconds }] : []),
+      { title: locale ? locale.hours : 'Hours', items: this.hours },
+      { title: locale ? locale.minutes : 'Minutes', items: this.minutes },
+      ...(this.hasSeconds ? [{ title: locale ? locale.seconds : 'Seconds', items: this.seconds }] : []),
       ...(this.clock12 ? [{ title: 'AM/PM', items: this.periods }] : [])
     ];
   }
